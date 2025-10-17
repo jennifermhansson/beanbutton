@@ -11,10 +11,10 @@
   "devDependencies": {
     "vite": "npm:rolldown-vite@7.1.14"
   },
-  "overrides": {
-    "vite": "npm:rolldown-vite@7.1.14"
-  },
   "dependencies": {
     "canvas-confetti": "^1.9.3"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@7.1.14"
   }
 }
