@@ -1,0 +1,22 @@
+/*
+ * @Author: MoS 
+ * @Date: 2025-10-15 14:06:22 
+ * @Last Modified by: MoS
+ * @Last Modified time: 2025-10-15 15:40:10
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fascinate+Inline&display=swap');
+
+/* 
+//For mos debuug
+* {
+    border: 1px solid red;
+} */
+
+body {
+  font-family: "Fascinate Inline", system-ui;
+  font-weight: 400;
+  font-style: normal;
+
+}
+
