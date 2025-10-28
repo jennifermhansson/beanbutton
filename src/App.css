@@ -1,42 +1,183 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+/* Reset & basstil */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+body {
+  background-color: #f6f3ef; /* ljus beige som kaffe med mjölk */
+  color: #3e2c23; /* mörk kaffebrun text */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* App-container */
+#root,
+.App {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Titel */
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: #5c3a21;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Input-komponent */
+.userInput {
+  margin-bottom: 2rem;
+}
+
+.userInput h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.userInput input {
+  padding: 0.6rem 1rem;
+  border: 2px solid #c7b7a3;
+  border-radius: 999px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 70%;
+  max-width: 300px;
+}
+
+.userInput input:focus {
+  border-color: #8b5a2b;
+}
+
+/* Timer */
+#displayTimer {
+  font-size: 2rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  color: #6f4e37;
+}
+
+button {
+  background-color: #6f4e37; /* kaffe */
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #8b5a2b;
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background-color: #d1c0ad;
+  cursor: not-allowed;
+}
+/* .container-brewers {
+  background-color: rgb(97, 97, 171);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+} */
+/* RecentBrewers-listan */
+.recent-brewers {
+  /* background-color: red; */
+  display: flex;
+  margin-top: 2.5rem;
+  /* text-align: left; */
+  flex-direction: column;
+  justify-content: center;
+}
+.recent-brewers ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  width: 100%;
+  border: 1px solid red;
+}
+
+.recent-brewers h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #5c3a21;
+  border-bottom: 2px solid #c7b7a3;
+  padding-bottom: 0.4rem;
+}
+.name-time-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.brewer {
+  background: #f0e6d8;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.brewer:hover {
+  background: #e8dece;
+}
+
+.brewer-name {
+  font-weight: bold;
+}
+
+.kudos {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.kudos-container {
+  display: flex;
+  border: 3px solid blue;
+  flex-direction: column;
+}
+.kudos button {
+  background: #8b5a2b;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.kudos button:hover {
+  background: #a96f3b;
+}
+
+/* Responsivitet */
+@media (max-width: 480px) {
+  #root {
+    padding: 1.2rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  h1 {
+    font-size: 1.8rem;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .userInput input {
+    width: 100%;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
