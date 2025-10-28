@@ -9,7 +9,7 @@ function Input({ name, setName, savedName }) {
   return (
     <div className="userInput">
       <h2>Hej {savedName ? savedName : ""} </h2>
-      <h2>Fyll i ditt namn för att starta bryggningen!☕</h2>
+      <h2>Fyll i ditt namn för att starta bryggningen! ☕</h2>
 
       <input
         type="text"

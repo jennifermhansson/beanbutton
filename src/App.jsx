@@ -1,4 +1,4 @@
-import Timer from "./Timer.jsx";
+import { useState, useEffect } from "react";
 import Input from "./Input.jsx";
 import { useState, useEffect } from "react";
 
@@ -16,6 +16,7 @@ function App() {
 
     // Spara till localStorage när man klickar på knappen
   const handleSave = () => {
+
     if (name.trim() !== "") {
       localStorage.setItem("userName", name);
       setSavedName(name);
