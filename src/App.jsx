@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Input from "./Input.jsx";
 import Timer from "./Timer.jsx";
 import RecentBrewers from "./RecentBrewers.jsx";
+import TopBrewers from "./TopBrewers.jsx";
 import { database } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
 
@@ -53,6 +54,7 @@ function App() {
       <Timer onStart={handleSave} name={name} />
       <div className="container-brewers">
         <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
+        <TopBrewers brewers={recentBrewers} />
       </div>
     </div>
   );
