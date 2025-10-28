@@ -11,11 +11,13 @@ function App() {
   const [recentBrewers, setRecentBrewers] = useState([]);
 
   useEffect(() => {
-    const brewsRef = ref(database, 'brews');
+    const brewsRef = ref(database, "brews");
     onValue(brewsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const brewers = Object.keys(data).map(key => ({ id: key, ...data[key] })).sort((a, b) => new Date(b.time) - new Date(a.time));
+        const brewers = Object.keys(data)
+          .map((key) => ({ id: key, ...data[key] }))
+          .sort((a, b) => new Date(b.time) - new Date(a.time));
         setRecentBrewers(brewers);
       }
     });
@@ -23,12 +25,12 @@ function App() {
 
   const handleSave = () => {
     if (name.trim() !== "") {
-      const brewsRef = ref(database, 'brews');
+      const brewsRef = ref(database, "brews");
       const newBrewRef = push(brewsRef);
       set(newBrewRef, {
         name: name,
         time: new Date().toISOString(),
-        kudos: 0
+        kudos: 0,
       });
       setSavedName(name);
     }
@@ -49,7 +51,9 @@ function App() {
       <h1>Bean Button</h1>
       <Input savedName={savedName} setName={setName} name={name} />
       <Timer onStart={handleSave} name={name} />
-      <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
+      <div className="container-brewers">
+        <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
+      </div>
     </div>
   );
 }
