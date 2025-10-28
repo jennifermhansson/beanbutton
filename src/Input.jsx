@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
+
 function Input({ name, setName, savedName }) {
+  // Uppdatera state när användaren skriver
   const handleChange = (event) => {
     setName(event.target.value);
   };

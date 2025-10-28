@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import Input from "./Input.jsx";
-import Timer from "./Timer.jsx";
+import { useState, useEffect } from "react";
 
 function App() {
   const [name, setName] = useState("");
   const [savedName, setSavedName] = useState("");
 
-  // Hämta namnet från localStorage när sidan laddas
+  // Hämta namnet från localStorage när sidan laddas om
   useEffect(() => {
-    const stored = localStorage.getItem("userName");
-    if (stored) setSavedName(stored);
+    const storedName = localStorage.getItem("userName");
+    if (storedName) {
+      setSavedName(storedName);
+    }
   }, []);
 
-  // Vi sparar till localStorage
-  const saveName = () => {
+    // Spara till localStorage när man klickar på knappen
+  const handleSave = () => {
+
     if (name.trim() !== "") {
       localStorage.setItem("userName", name);
       setSavedName(name);
@@ -21,9 +24,10 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "3rem" }}>
-      <Input name={name} setName={setName} savedName={savedName} />
-      <Timer onStart={saveName} name={name} />
+    <div>
+      <h1>Bean Button</h1>
+      <Input savedName={savedName} setName={setName} name={name} />
+      <Timer onStart={handleSave} name={name} />
     </div>
   );
 }

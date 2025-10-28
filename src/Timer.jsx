@@ -1,30 +1,32 @@
 import { useState, useEffect } from "react";
 
 function Timer({ onStart, name }) {
-  // när timern startas så sparas namnet
   const [showTimer, setShowTimer] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
-    if (!isRunning) return;
+    if (!isRunning) return; // om inte igång → gör inget
 
     if (typeof showTimer === "number" && showTimer > 0) {
       const timer = setTimeout(() => {
         setShowTimer((prev) => prev - 1);
       }, 1000);
 
+      // städar bort timer när komponenten renderas om
       return () => clearTimeout(timer);
     }
 
     if (showTimer === 0) {
-      setShowTimer("Kaffet klart!");
+      setShowTimer("Klart");
       setIsRunning(false);
     }
+    console.log(showTimer);
   }, [showTimer, isRunning]);
 
   const startTimer = () => {
     if (!isRunning) {
-      onStart(); // när timern startas så sparas namnet
+      onStart();
+      setShowTimer(5); //???
       setIsRunning(true);
     }
   };
@@ -32,9 +34,11 @@ function Timer({ onStart, name }) {
   return (
     <>
       <div id="displayTimer">{showTimer}</div>
-      <button onClick={startTimer} disabled={!name.trim()}>
-        Start
-      </button>
+      <div>
+        <button onClick={startTimer} disabled={!name.trim()}>
+          Start
+        </button>
+      </div>
     </>
   );
 }
