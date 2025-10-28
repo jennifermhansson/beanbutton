@@ -1,28 +1,9 @@
 import { useState, useEffect } from "react";
 
-function Input() {
-  const [name, setName] = useState("");
-  const [savedName, setSavedName] = useState("");
-
-  // Hämta namnet från localStorage när sidan laddas om
-  useEffect(() => {
-    const storedName = localStorage.getItem("userName");
-    if (storedName) {
-      setSavedName(storedName);
-    }
-  }, []);
-
+function Input({ name, setName, savedName }) {
   // Uppdatera state när användaren skriver
   const handleChange = (event) => {
     setName(event.target.value);
-  };
-
-  // Spara till localStorage när man klickar på knappen
-  const handleSave = () => {
-    if (name.trim() !== "") {
-      localStorage.setItem("userName", name);
-      setSavedName(name);
-    }
   };
 
   return (
@@ -36,7 +17,6 @@ function Input() {
         onChange={handleChange}
         placeholder="Namn"
       />
-      <button onClick={handleSave}>Starta bryggning!</button>
     </div>
   );
 }
