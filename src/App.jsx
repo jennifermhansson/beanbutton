@@ -1,26 +1,47 @@
 import { useState, useEffect } from "react";
 import Input from "./Input.jsx";
-import { useState, useEffect } from "react";
+import Timer from "./Timer.jsx";
+import RecentBrewers from "./RecentBrewers.jsx";
+import { database } from "./firebase";
+import { ref, push, onValue, set, runTransaction } from "firebase/database";
 
 function App() {
   const [name, setName] = useState("");
   const [savedName, setSavedName] = useState("");
+  const [recentBrewers, setRecentBrewers] = useState([]);
 
-  // Hämta namnet från localStorage när sidan laddas om
   useEffect(() => {
-    const storedName = localStorage.getItem("userName");
-    if (storedName) {
-      setSavedName(storedName);
-    }
+    const brewsRef = ref(database, 'brews');
+    onValue(brewsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const brewers = Object.keys(data).map(key => ({ id: key, ...data[key] })).sort((a, b) => new Date(b.time) - new Date(a.time));
+        setRecentBrewers(brewers);
+      }
+    });
   }, []);
 
-    // Spara till localStorage när man klickar på knappen
   const handleSave = () => {
-
     if (name.trim() !== "") {
-      localStorage.setItem("userName", name);
+      const brewsRef = ref(database, 'brews');
+      const newBrewRef = push(brewsRef);
+      set(newBrewRef, {
+        name: name,
+        time: new Date().toISOString(),
+        kudos: 0
+      });
       setSavedName(name);
     }
+  };
+
+  const giveKudos = (id) => {
+    const brewRef = ref(database, `brews/${id}`);
+    runTransaction(brewRef, (brew) => {
+      if (brew) {
+        brew.kudos = (brew.kudos || 0) + 1;
+      }
+      return brew;
+    });
   };
 
   return (
@@ -28,6 +49,7 @@ function App() {
       <h1>Bean Button</h1>
       <Input savedName={savedName} setName={setName} name={name} />
       <Timer onStart={handleSave} name={name} />
+      <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
     </div>
   );
 }
