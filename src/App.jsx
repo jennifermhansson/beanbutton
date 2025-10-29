@@ -3,6 +3,7 @@ import Input from "./Input.jsx";
 import Timer from "./Timer.jsx";
 import RecentBrewers from "./RecentBrewers.jsx";
 import TopBrewers from "./TopBrewers.jsx";
+import RecentBrewerStatus from "./RecentBrewerStatus.jsx";
 import { database } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
 
@@ -52,6 +53,7 @@ function App() {
       <h1>Bean Button</h1>
       <Input savedName={savedName} setName={setName} name={name} />
       <Timer onStart={handleSave} name={name} />
+      <RecentBrewerStatus brewers={recentBrewers} />
       <div className="container-brewers">
         <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
         <TopBrewers brewers={recentBrewers} />
