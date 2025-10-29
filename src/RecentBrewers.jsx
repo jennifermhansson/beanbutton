@@ -12,7 +12,7 @@ const RecentBrewers = ({ brewers, giveKudos }) => {
             </div>
             <div className="kudos-container">
               <span>Kudos: {brewer.kudos}</span>
-              <button onClick={() => giveKudos(brewer.id)}>Give Kudos</button>
+              <button onClick={() => giveKudos(brewer.id)} className="kudos-btn">👍</button>
             </div>
           </li>
         ))}
