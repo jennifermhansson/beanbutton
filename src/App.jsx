@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Input from "./Input.jsx";
-import Timer from "./Timer.jsx";
-import RecentBrewers from "./RecentBrewers.jsx";
-import TopBrewers from "./TopBrewers.jsx";
-import RecentBrewerStatus from "./RecentBrewerStatus.jsx";
+import Input from "./components/Input.jsx";
+import Timer from "./components/Timer.jsx";
+import RecentBrewers from "./components/RecentBrewers.jsx"
+import TopBrewers from "./components/TopBrewers.jsx";
+import RecentBrewerStatus from "./components/RecentBrewerStatus.jsx";
 import { database } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
 
