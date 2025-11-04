@@ -6,7 +6,6 @@ import TopBrewers from "./components/TopBrewers.jsx";
 import RecentBrewerStatus from "./components/RecentBrewerStatus.jsx";
 import { database } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
-/* import MarqueeText from "react-marquee-text"; */
 import CheesyQuotes from "./components/CheesyQuotes.jsx";
 import FooterObj from "./components/footer.jsx";
 

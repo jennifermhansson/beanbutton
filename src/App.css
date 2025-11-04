@@ -2,11 +2,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 }
 body {
-  background-color: #20160F; 
-  color: #EEE; 
+  background-color: #20160f;
+  color: #eee;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -27,7 +27,7 @@ body {
 .logo-text {
   font-size: 2.2rem;
   margin-bottom: 1.5rem;
-  color: #CA8505;
+  color: #ca8505;
   letter-spacing: 3px;
   text-shadow: 1px 1px 1px rgb(245, 126, 0);
   text-transform: uppercase;
@@ -36,34 +36,34 @@ body {
   align-items: center;
   padding: 50px;
 }
-.logo-text img{
+.logo-text img {
   width: 40px;
   height: 40px;
   margin-right: 20px;
 }
-.horizontal{
+.horizontal {
   display: flex;
   justify-content: center;
   align-items: start;
   gap: 40px;
   flex-wrap: wrap;
 }
-.left-side{
+.left-side {
   display: flex;
   justify-content: center;
-  align-content:center;
-  gap:40px;
+  align-content: center;
+  gap: 40px;
   flex-direction: column;
 }
-.right-side{
+.right-side {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:40px;
+  gap: 40px;
   flex-direction: column;
 }
-.brygg{
-  background-color: #392A1E;
+.brygg {
+  background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
   display: flex;
@@ -71,28 +71,35 @@ body {
   align-items: center;
   flex-direction: column;
 }
-.recent-brewer-status{
-  background-color: #392A1E;
+.recent-brewer-status {
+  background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
 }
-.top-brewers{
-  background-color: #392A1E;
+.top-brewers {
+  background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
   width: 100%;
 }
-.recent-brewers{
-  background-color: #392A1E;
+.recent-brewers {
+  background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
 }
-.brew-btn{
-  background-color: #CA8505;
+.brew-btn {
+  background-color: #ca8505;
   transition: background 0.3s ease, transform 0.1s ease;
   cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 20px;
+  height: 4em;
+  border: 3px solid #bd9858;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 1px 1px 5px 5px #11111190 inset;
 }
-.brew-btnhover:hover:not(:disabled)  {
+.brew-btnhover:hover:not(:disabled) {
   transform: scale(1.05);
   cursor: pointer;
 }
@@ -107,18 +114,18 @@ body {
   flex-direction: column;
   width: 100%;
 }
-.user-input-container h2{
+.user-input-container h2 {
   font-size: 1.2rem;
   display: inline;
   margin: 10px;
 }
-.user-input-container li{
+.user-input-container li {
   font-size: 0.8rem;
   margin: 10px;
 }
-.user-input{
+.user-input {
   padding: 0.6rem 1rem;
-  border: 2px solid #CA8505;
+  border: 2px solid #ca8505;
   border-radius: 20px;
   font-size: 1.5rem;
   width: 100%;
@@ -126,52 +133,41 @@ body {
   max-width: 200px;
   margin: 20px;
   text-align: center;
-  box-shadow: 1px 1px 8px 8px #11111190 inset;
+  box-shadow: 1px 1px 5px 5px #11111190 inset;
 }
-.user-input::placeholder{
+.user-input::placeholder {
   font-size: 0.45em;
   text-align: center;
 }
-
-
-
-/* Timer */
-#displayTimer {
-  font-size: 2rem;
-  margin: 1rem 0;
-  font-weight: bold;
-  color: #6f4e37;
+.container-quotes {
+  background-color: #ffffff99;
+  padding: 15px;
+  color: #392a1e;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px 5px #11111190 inset;
 }
 
-button {
-  background-color: #6f4e37; /* kaffe */
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 0.7rem 1.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background 0.3s ease, transform 0.1s ease;
-}
-
-button:hover:not(:disabled) {
-  background-color: #8b5a2b;
-  transform: scale(1.05);
-}
-
-button:disabled {
-  background-color: #d1c0ad;
-  cursor: not-allowed;
-}
-/* .container-brewers {
-  background-color: rgb(97, 97, 171);
+footer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-} */
-
+  margin: 40px 0;
+  padding: 40px;
+  background-color: #11111150;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 20px #00000090;
+}
+.copyrighttxt, .autorsCreds{
+  font-size: 0.8em;
+  text-align: center;
+}
+.autorsCreds a{
+  font-size: 0.8em;
+  color: #ca8505;
+  text-decoration: none;
+}
 .name-time-container {
   display: flex;
   flex-direction: column;
@@ -187,7 +183,6 @@ button:disabled {
   align-items: center;
   transition: background 0.3s ease;
 }
-
 
 /* Responsivitet */
 @media (max-width: 480px) {

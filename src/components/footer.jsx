@@ -8,8 +8,8 @@ const FooterObj = () => {
     return (
         <>
             <footer>
-                <p className="copyrighttxt">Copy it's your right 2025</p>
-                <p className="autorsCreds">Kudos: <a href={contributor1Link} target="_blank">{contributor1Name}</a> & <a href={contributor2Link} target="_blank">{contributor2Name}</a></p>
+                <p className="copyrighttxt">FOS25 | Copy it's your right 2025</p>
+                <p className="autorsCreds">Kudos: <a href={contributor1Link} target="_blank">{contributor1Name}</a> & <a href={contributor2Link} target="_blank">{contributor2Name}</a><br/><a href="https://github.com/jennifermhansson/beanbutton" target="_blank">repo</a></p>
             </footer>
         </>
     )
