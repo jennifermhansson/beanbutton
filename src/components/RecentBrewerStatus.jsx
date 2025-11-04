@@ -1,7 +1,9 @@
 import ProgressBar from "./ProgressBar";
 
-const FRESH_MINUTES = 5;//Här ska det ändras kanske till 30min, men vi tar 5min så vi ser resultatet
+const FRESH_MINUTES = 2; //Här ska det ändras kanske till 30min, men lägg gärna till 5min tll som tas i bryggningen dvs addera det som finns i "durationMinutes" i progressbar.jsx
 const MS_PER_MINUTE = 60 * 1000;
+
+const delayWhenBrewing = 1;
 
 const formatMinutesAgo = (diffMs) => {
   const minutesAgo = Math.floor(diffMs / MS_PER_MINUTE);
@@ -33,7 +35,10 @@ function RecentBrewerStatus({ brewers = [] }) {
   }
 
   const diffMs = Math.max(Date.now() - brewedTimeMs, 0);
-  const isFresh = diffMs < FRESH_MINUTES * MS_PER_MINUTE;
+  const hasDelayPassed = diffMs >= delayWhenBrewing * MS_PER_MINUTE;
+  const isFresh =
+    hasDelayPassed &&
+    diffMs < (FRESH_MINUTES + delayWhenBrewing) * MS_PER_MINUTE;
 
   return (
     <section className="recent-brewer-status">
@@ -42,13 +47,25 @@ function RecentBrewerStatus({ brewers = [] }) {
         <strong>{latest.name}</strong> bryggde kaffet för{" "}
         {formatMinutesAgo(diffMs)} sedan.
       </p>
-      {isFresh ? (
-        <>
-          <p className="recent-brewer-status__subtitle">Kaffet kallnar</p>
-          <ProgressBar startedAt={latest.time} durationMinutes={FRESH_MINUTES} />
-        </>
+      {hasDelayPassed ? (
+        isFresh ? (
+          <>
+            <p>Kaffet kallnar</p>
+            <ProgressBar
+              startedAt={latest.time}
+              durationMinutes={FRESH_MINUTES}
+            />
+            <div className="status-banner">
+              <div className="status-box">
+                <h3>Färsk kaffe finns att hämta!</h3>
+              </div>
+            </div>
+          </>
+        ) : (
+          <p>Får intas på egen risk</p>
+        )
       ) : (
-        <p className="recent-brewer-status__warning">Får intas på egen risk</p>
+        <p>☕ Bryggning pågår… vänta {delayWhenBrewing} minut</p>
       )}
     </section>
   );

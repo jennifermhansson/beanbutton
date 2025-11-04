@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 
 const MS_PER_MINUTE = 60 * 1000;
-
-function ProgressBar({ startedAt, durationMinutes = 30 }) {
+// Duratio time är den som ska ändras för en bryggning
+function ProgressBar({ startedAt, durationMinutes = 5 }) {
   if (!startedAt) {
     return null;
   }
