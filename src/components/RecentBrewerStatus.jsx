@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 
-const old = 3;
-const FRESH_MINUTES = 2; // kaffe räknas som färskt i 30 min
+const FRESH_MINUTES = 1; // kaffe räknas som färskt i 30 min
 const MS_PER_MINUTE = 60 * 1000;
-
-const delayWhenBrewing = 20; // sekunder att vänta innan status visas
+const delayWhenBrewing = 5; // sekunder att vänta innan status visas
+const old = 2; // minuter efter vilket det är dags att brygga nytt
 
 function RecentBrewerStatus({ brewers = [] }) {
-  const [status, setStatus] = useState("väntar"); // väntar | färsk | risk
-  const [timerStarted, setTimerStarted] = useState(false);
+  const [status, setStatus] = useState("väntar"); // väntar | färsk | risk | newPot
 
   useEffect(() => {
     if (!brewers.length || !brewers[0]?.time) return;
@@ -16,47 +14,37 @@ function RecentBrewerStatus({ brewers = [] }) {
     const latest = brewers[0];
     const brewedAt = new Date(latest.time).getTime();
 
-    // Första steget: vänta fördröjning i sekunder
-    const delayTimer = setTimeout(() => {
-      setTimerStarted(true);
-      setStatus("färsk");
+    const checkStatus = () => {
+      const now = Date.now();
+      const diffMinutes = (now - brewedAt) / MS_PER_MINUTE;
 
-      // När delayen gått ut → starta "färskhets-timer"
-      const freshnessTimer = setInterval(() => {
-        const now = Date.now();
-        const diffMs = now - brewedAt;
-        const diffMinutes = diffMs / MS_PER_MINUTE;
+      if (diffMinutes >= old) {
+        setStatus("newPot");
+      } else if (diffMinutes >= FRESH_MINUTES) {
+        setStatus("risk");
+      } else if (diffMinutes >= delayWhenBrewing / 60) {
+        setStatus("färsk");
+      } else {
+        setStatus("väntar");
+      }
+    };
 
-        if (diffMinutes >= FRESH_MINUTES) {
-          setStatus("risk");
-          clearInterval(freshnessTimer);
-        }else if(diffMinutes >= old){
-          setStatus("newPot");
-        }
-        
-      }, 10 * 1000); // kolla var 10:e sekund
+    // Kör direkt vid mount
+    checkStatus();
 
-      // Rensa timer när komponent avmonteras
-      return () => clearInterval(freshnessTimer);
-    }, delayWhenBrewing * 1000);
+    // Kolla var 10:e sekund
+    const timer = setInterval(checkStatus, 10 * 1000);
 
-    // Rensa första timern vid avmontering
-    return () => clearTimeout(delayTimer);
+    return () => clearInterval(timer);
   }, [brewers]);
 
-  const latest = brewers[0];
-  const brewerName = latest?.name || "Okänd";
+  const brewerName = brewers[0]?.name || "Okänd";
 
   return (
     <section className="recent-brewer-status">
       <h2>☕️ Senaste bryggning</h2>
-      {status === "newPot" && (
-        <p>⏳ Gör du inget, gör kaffe! </p>
-      )}
 
-      {status === "väntar" && (
-        <p>⏳ Bryggning pågår... startat av </p>
-      )}
+      {status === "väntar" && <p>⏳ Bryggning pågår...{brewerName}</p>}
 
       {status === "färsk" && (
         <p>🟢 {brewerName} bryggde nyligen – kaffe finns!</p>
@@ -65,6 +53,12 @@ function RecentBrewerStatus({ brewers = [] }) {
       {status === "risk" && (
         <p className="recent-brewer-status__warning">
           ⚠️ Kaffet är äldre än {FRESH_MINUTES} minuter – på egen risk!
+        </p>
+      )}
+
+      {status === "newPot" && (
+        <p className="recent-brewer-status__warning">
+          🕰️ Kaffet är över {old} minuter gammalt – brygg nytt!
         </p>
       )}
     </section>
