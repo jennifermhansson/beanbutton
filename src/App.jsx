@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Input from "./components/Input.jsx";
 import ProgressBar from "./components/ProgressBar.jsx";
-import RecentBrewers from "./components/RecentBrewers.jsx"
+import RecentBrewers from "./components/RecentBrewers.jsx";
 import TopBrewers from "./components/TopBrewers.jsx";
 import RecentBrewerStatus from "./components/RecentBrewerStatus.jsx";
 import { database } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
+import MarqueeText from "react-marquee-text";
+import CheesyQuotes from "./components/CheesyQuotes.jsx";
 
 function App() {
   const [name, setName] = useState("");
@@ -37,7 +39,7 @@ function App() {
       });
       setSavedName(name);
     }
-    setIsRunning(true)
+    setIsRunning(true);
   };
 
   const giveKudos = (id) => {
@@ -52,11 +54,17 @@ function App() {
 
   return (
     <div>
+      <CheesyQuotes />
+
       <h1>Bean Button</h1>
       <Input savedName={savedName} setName={setName} name={name} />
       <button onClick={handleSave}>Gör kaffet</button>
-      {isRunning ? <ProgressBar startedAt={new Date()}  /> : "Ingen har start något"}
-  
+      {isRunning ? (
+        <ProgressBar startedAt={new Date()} />
+      ) : (
+        "Ingen har start något"
+      )}
+
       <RecentBrewerStatus brewers={recentBrewers} />
       <div className="container-brewers">
         <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
