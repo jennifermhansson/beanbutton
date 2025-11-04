@@ -55,8 +55,8 @@ function App() {
 
   return (
     <>
-    <CheesyQuotes />
       <div className="coffe-btn-container">
+        <CheesyQuotes />
         <div className="logo-text">
           <img src="./src/assets/cup.png" alt="Coffe button logo picture" />
           Coffe Button
