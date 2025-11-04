@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const FRESH_MINUTES = 1; // kaffe räknas som färskt i 30 min
+const FRESH_MINUTES = 30; // kaffe räknas som färskt i 30 min
 const MS_PER_MINUTE = 60 * 1000;
-const delayWhenBrewing = 5; // sekunder att vänta innan status visas
-const old = 2; // minuter efter vilket det är dags att brygga nytt
+const delayWhenBrewing = 180; // sekunder att vänta innan status visas
+const old = 90; // minuter efter vilket det är dags att brygga nytt
 
 function RecentBrewerStatus({ brewers = [] }) {
   const [status, setStatus] = useState("väntar"); // väntar | färsk | risk | newPot
@@ -41,7 +41,7 @@ function RecentBrewerStatus({ brewers = [] }) {
   const brewerName = brewers[0]?.name || "Okänd";
 
   return (
-    <section className="recent-brewer-status">
+    <div className="recent-brewer-status">
       <h2>☕️ Senaste bryggning</h2>
 
       {status === "väntar" && <p>⏳ Bryggning pågår...{brewerName}</p>}
@@ -61,7 +61,7 @@ function RecentBrewerStatus({ brewers = [] }) {
           🕰️ Kaffet är över {old} minuter gammalt – brygg nytt!
         </p>
       )}
-    </section>
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ const RecentBrewers = ({ brewers, giveKudos }) => {
     <div className="recent-brewers">
       <h2>☕️ Recent Brewers</h2>
       <ul>
-        {brewers.slice(0, 7).map((brewer) => (
+        {brewers.slice(0,5).map((brewer) => (
           <li key={brewer.id}>
             <div className="name-time-container">
               <strong>{brewer.name}</strong>
