@@ -17,6 +17,7 @@ function Input({ name, setName, savedName }) {
         </ul>
 
       <input
+      maxlength="13"
         type="text"
         value={name}
         onChange={handleChange}

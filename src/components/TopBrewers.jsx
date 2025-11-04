@@ -26,10 +26,10 @@ const TopBrewers = ({ brewers }) => {
   return (
     <div className="top-brewers">
       <h2>🏆 Top Brewers</h2>
-      <ol>
+      <ol className="top-brewers-list">
         {topBrewers.map((brewer) => (
-          <li key={brewer.name}>
-            <strong>{brewer.name}</strong> — Kudos: {brewer.kudos || 0}
+          <li key={brewer.name} className="top-brewer-container">
+            <p className="brewer-name">{brewer.name}</p><p> — Antal: {brewer.kudos || 0}</p>
           </li>
         ))}
       </ol>

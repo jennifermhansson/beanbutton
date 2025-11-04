@@ -5,7 +5,9 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 }
 body {
-  background-color: #20160f;
+  background-color: #20160f;/* 
+  background-image: url(./assets/bean.jpg);
+  background-position: center; */
   color: #eee;
   display: flex;
   justify-content: center;
@@ -76,16 +78,111 @@ body {
   padding: 40px;
   border-radius: 20px;
 }
+.recent-brewer-status div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 33px 0;
+  font-size: 1.2em;
+}.recent-brewer-status div p{
+  color: #ca8505;
+}
 .top-brewers {
   background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+}
+.top-brewers-list{
+  margin: 10px;
+  width: 100%;
+  counter-reset: item;
+}
+.top-brewer-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  counter-increment: item;
+  gap: 3px;
+  margin: 10px 0 0;
+}
+.top-brewer-container::before {
+  content: counter(item) ". ";
+  color: #ca8505;
+  margin-right: 0.5rem;
+  font-size: 1.1em;
 }
 .recent-brewers {
   background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
+}
+.recent-brewers-list{
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.recent-brewers-list li{
+  margin: 5px;
+  padding: 15px;
+  border-bottom: 1px dotted #eeeEEE50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  background-color: #11111150;
+}
+.name-time-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+  padding: 5px;
+  gap:5px
+}
+.brewer-name{
+font-size: 1.2em;
+font-weight: bold;
+color: #ca8505;
+margin: 0 0;
+}
+.brewer-date{
+  font-size: 0.7em;
+margin: 10px 0 0;
+}
+.brewer-time{
+  font-size: 1em;
+  color: #ffe7be;
+}
+.kudos-klick{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  margin: 8px 0 0 0px;
+  padding-left: 15px;
+  border-left: 4px dotted #EEEEEE50;
+  height: 100%;
+}
+.kudos-btn{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+.thumbs-icon {
+  color: #ca8505;
 }
 .brew-btn {
   background-color: #ca8505;
@@ -167,11 +264,6 @@ footer {
   font-size: 0.8em;
   color: #ca8505;
   text-decoration: none;
-}
-.name-time-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 .brewer {
   background: #f0e6d8;

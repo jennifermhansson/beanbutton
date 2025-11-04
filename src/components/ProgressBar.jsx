@@ -44,12 +44,12 @@ function ProgressBar({ brewers = [], durationMinutes = 3 }) {
   // 🎨 Stil
   const containerStyle = useMemo(
     () => ({
-      width: "100%",
+      width: "200px",
       backgroundColor: "#f0e6d8",
       borderRadius: "999px",
       overflow: "hidden",
       border: "1px solid #d8c7b5",
-      marginTop: "1rem",
+      marginTop: "2rem",
     }),
     []
   );
@@ -62,11 +62,8 @@ function ProgressBar({ brewers = [], durationMinutes = 3 }) {
       alignItems: "center",
       justifyContent: "center",
       background:
-        percent > 0
-          ? "linear-gradient(90deg, #8b5a2b, #c68642)"
-          : "#ccc",
-      color: "#1f0505ff",
-      fontWeight: 600,
+        percent > 0 ? "linear-gradient(90deg, #8b5a2b, #c68642)" : "#ccc",
+      color: "#333",
       letterSpacing: "0.5px",
       transition: "width 0.5s ease",
       whiteSpace: "nowrap",
@@ -78,8 +75,8 @@ function ProgressBar({ brewers = [], durationMinutes = 3 }) {
     <div style={containerStyle} aria-live="polite">
       <div style={barStyle}>
         {remainingMs > 0
-          ? `☕ ${minutes}m ${seconds.toString().padStart(2, "0")}s • ${percent}%`
-          : "⚠️ Kaffet är ljummet"}
+          ? ` ${minutes}m ${seconds.toString().padStart(2, "0")}s `
+          : ""}
       </div>
     </div>
   );
