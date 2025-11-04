@@ -1,43 +1,104 @@
-/* Reset & basstil */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Inter", "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 }
-
 body {
-  background-color: #f6f3ef; /* ljus beige som kaffe med mjölk */
-  color: #3e2c23; /* mörk kaffebrun text */
+  background-color: #20160F; 
+  color: #EEE; 
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
+  min-width: 100wh;
   padding: 2rem;
 }
-
-/* App-container */
-#root,
-.App {
-  width: 100%;
-  max-width: 600px;
-  background: #fff;
+.coffe-btn-container {
+  background-color: #11111150;
+  padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  padding: 2rem;
-  text-align: center;
+  box-shadow: 1px 1px 20px #00000090;
+  width: 960px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
-
-/* Titel */
-h1 {
+.logo-text {
   font-size: 2.2rem;
   margin-bottom: 1.5rem;
-  color: #5c3a21;
-  letter-spacing: 1px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  color: #CA8505;
+  letter-spacing: 3px;
+  text-shadow: 1px 1px 1px rgb(245, 126, 0);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.logo-text img{
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+.horizontal{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.left-side{
+  display: flex;
+  justify-content: center;
+  align-content:center;
+  gap:40px;
+  flex-direction: column;
+}
+.right-side{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:40px;
+  flex-direction: column;
+}
+.brygg{
+  background-color: #392A1E;
+  padding: 40px;
+  border-radius: 20px;
+}
+.recent-brewer-status{
+  background-color: #392A1E;
+  padding: 40px;
+  border-radius: 20px;
+}
+.top-brewers{
+  background-color: #392A1E;
+  padding: 40px;
+  border-radius: 20px;
+  width: 100%;
+}
+.recent-brewers{
+  background-color: #392A1E;
+  padding: 40px;
+  border-radius: 20px;
+}
+.brew-btn{
+  background-color: #CA8505;
+  transition: background 0.3s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+.brew-btnhover:hover:not(:disabled)  {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.brew-btnhover:disabled {
+  background-color: #d1c0ad;
+  cursor: not-allowed;
 }
 
-/* Input-komponent */
+
+
 .userInput {
   margin-bottom: 2rem;
 }
@@ -98,31 +159,7 @@ button:disabled {
   align-items: center;
   flex-direction: column;
 } */
-/* RecentBrewers-listan */
-.recent-brewers {
-  /* background-color: red; */
-  display: flex;
-  margin-top: 2.5rem;
-  /* text-align: left; */
-  flex-direction: column;
-  justify-content: center;
-}
-.recent-brewers ul li {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: row;
-  width: 100%;
-  border: 1px solid red;
-}
 
-.recent-brewers h3 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-  color: #5c3a21;
-  border-bottom: 2px solid #c7b7a3;
-  padding-bottom: 0.4rem;
-}
 .name-time-container {
   display: flex;
   flex-direction: column;
@@ -139,41 +176,6 @@ button:disabled {
   transition: background 0.3s ease;
 }
 
-.brewer:hover {
-  background: #e8dece;
-}
-
-.brewer-name {
-  font-weight: bold;
-}
-
-.kudos {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.kudos-container {
-  display: flex;
-  border: 3px solid blue;
-  flex-direction: column;
-}
-/* .kudos button {
-  background: #8b5a2b;
-  padding: 0.3rem 0.7rem;
-  font-size: 0.9rem;
-}
-
-.kudos button:hover {
-  background: #a96f3b;
-} */
-
-.kudos-btn {
-  background-color: transparent;
-}
-.kudos-btn:hover {
-  background-color: transparent;
-  scale: 1.4;
-}
 
 /* Responsivitet */
 @media (max-width: 480px) {

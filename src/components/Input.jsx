@@ -7,15 +7,20 @@ function Input({ name, setName, savedName }) {
   };
 
   return (
-    <div className="userInput">
-      <h2>Hej {savedName ? savedName : ""} </h2>
-      <h2>Fyll i ditt namn för att starta bryggningen! ☕</h2>
+    <div className="user-input-container">
+      {/* <h2>Hej {savedName ? savedName : ""} </h2> */}
+      <h2>Hur går det här till?</h2>
+        <ul>
+          <li>Fyll i ditt namn!</li>
+          <li>tryck på knappen!☕</li>
+          <li>Ta-da!</li>
+        </ul>
 
       <input
         type="text"
         value={name}
         onChange={handleChange}
-        placeholder="Namn"
+        placeholder="Vem är den duktiga bryggaren?" className="user-input"
       />
     </div>
   );
