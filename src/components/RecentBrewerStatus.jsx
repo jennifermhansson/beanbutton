@@ -1,71 +1,71 @@
-import ProgressBar from "./ProgressBar";
+import { useEffect, useState } from "react";
 
-const FRESH_MINUTES = 2; //Här ska det ändras kanske till 30min, men lägg gärna till 5min tll som tas i bryggningen dvs addera det som finns i "durationMinutes" i progressbar.jsx
+const old = 3;
+const FRESH_MINUTES = 2; // kaffe räknas som färskt i 30 min
 const MS_PER_MINUTE = 60 * 1000;
 
-const delayWhenBrewing = 1;
-
-const formatMinutesAgo = (diffMs) => {
-  const minutesAgo = Math.floor(diffMs / MS_PER_MINUTE);
-  if (minutesAgo <= 0) {
-    return "mindre än en minut";
-  }
-  if (minutesAgo === 1) {
-    return "1 minut";
-  }
-  return `${minutesAgo} minuter`;
-};
+const delayWhenBrewing = 20; // sekunder att vänta innan status visas
 
 function RecentBrewerStatus({ brewers = [] }) {
-  if (!brewers.length) {
-    return null;
-  }
+  const [status, setStatus] = useState("väntar"); // väntar | färsk | risk
+  const [timerStarted, setTimerStarted] = useState(false);
+
+  useEffect(() => {
+    if (!brewers.length || !brewers[0]?.time) return;
+
+    const latest = brewers[0];
+    const brewedAt = new Date(latest.time).getTime();
+
+    // Första steget: vänta fördröjning i sekunder
+    const delayTimer = setTimeout(() => {
+      setTimerStarted(true);
+      setStatus("färsk");
+
+      // När delayen gått ut → starta "färskhets-timer"
+      const freshnessTimer = setInterval(() => {
+        const now = Date.now();
+        const diffMs = now - brewedAt;
+        const diffMinutes = diffMs / MS_PER_MINUTE;
+
+        if (diffMinutes >= FRESH_MINUTES) {
+          setStatus("risk");
+          clearInterval(freshnessTimer);
+        }else if(diffMinutes >= old){
+          setStatus("newPot");
+        }
+        
+      }, 10 * 1000); // kolla var 10:e sekund
+
+      // Rensa timer när komponent avmonteras
+      return () => clearInterval(freshnessTimer);
+    }, delayWhenBrewing * 1000);
+
+    // Rensa första timern vid avmontering
+    return () => clearTimeout(delayTimer);
+  }, [brewers]);
 
   const latest = brewers[0];
-
-  if (!latest?.time) {
-    return null;
-  }
-
-  const brewedAt = new Date(latest.time);
-  const brewedTimeMs = brewedAt.getTime();
-
-  if (Number.isNaN(brewedTimeMs)) {
-    return null;
-  }
-
-  const diffMs = Math.max(Date.now() - brewedTimeMs, 0);
-  const hasDelayPassed = diffMs >= delayWhenBrewing * MS_PER_MINUTE;
-  const isFresh =
-    hasDelayPassed &&
-    diffMs < (FRESH_MINUTES + delayWhenBrewing) * MS_PER_MINUTE;
+  const brewerName = latest?.name || "Okänd";
 
   return (
     <section className="recent-brewer-status">
       <h2>☕️ Senaste bryggning</h2>
-      <p className="recent-brewer-status__message">
-        <strong>{latest.name}</strong> bryggde kaffet för{" "}
-        {formatMinutesAgo(diffMs)} sedan.
-      </p>
-      {hasDelayPassed ? (
-        isFresh ? (
-          <>
-            <p>Kaffet kallnar</p>
-            <ProgressBar
-              startedAt={latest.time}
-              durationMinutes={FRESH_MINUTES}
-            />
-            <div className="status-banner">
-              <div className="status-box">
-                <h3>Färsk kaffe finns att hämta!</h3>
-              </div>
-            </div>
-          </>
-        ) : (
-          <p>Får intas på egen risk</p>
-        )
-      ) : (
-        <p>☕ Bryggning pågår… vänta {delayWhenBrewing} minut</p>
+      {status === "newPot" && (
+        <p>⏳ Gör du inget, gör kaffe! </p>
+      )}
+
+      {status === "väntar" && (
+        <p>⏳ Bryggning pågår... startat av </p>
+      )}
+
+      {status === "färsk" && (
+        <p>🟢 {brewerName} bryggde nyligen – kaffe finns!</p>
+      )}
+
+      {status === "risk" && (
+        <p className="recent-brewer-status__warning">
+          ⚠️ Kaffet är äldre än {FRESH_MINUTES} minuter – på egen risk!
+        </p>
       )}
     </section>
   );

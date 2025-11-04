@@ -11,7 +11,7 @@ function App() {
   const [name, setName] = useState("");
   const [savedName, setSavedName] = useState("");
   const [recentBrewers, setRecentBrewers] = useState([]);
-  const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(true);
 
   useEffect(() => {
     const brewsRef = ref(database, "brews");
@@ -50,14 +50,15 @@ function App() {
     });
   };
 
+
   return (
     <div>
       <h1>Bean Button</h1>
       <Input savedName={savedName} setName={setName} name={name} />
       <button onClick={handleSave}>Gör kaffet</button>
-      {isRunning ? <ProgressBar startedAt={new Date()}  /> : "Ingen har start något"}
-  
+     {isRunning ? <ProgressBar brewers={recentBrewers} /> : "Ingen har start något"} 
       <RecentBrewerStatus brewers={recentBrewers} />
+  
       <div className="container-brewers">
         <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
         <TopBrewers brewers={recentBrewers} />

@@ -1,41 +1,47 @@
 import { useEffect, useMemo, useState } from "react";
 
 const MS_PER_MINUTE = 60 * 1000;
-// Duratio time är den som ska ändras för en bryggning
-function ProgressBar({ startedAt, durationMinutes = 5 }) {
-  if (!startedAt) {
-    return null;
-  }
+
+/**
+ * ProgressBar som tar in en array av brewers-objekt
+ * och använder tiden från den senaste (första) bryggningen.
+ */
+function ProgressBar({ brewers = [], durationMinutes = 3 }) {
+  // 🧩 Ingen data? Visa inget
+  if (!brewers.length) return null;
+
+  const latest = brewers[0];
+  const startedAt = latest?.time;
+  if (!startedAt) return null;
 
   const durationMs = durationMinutes * MS_PER_MINUTE;
 
+  // 🔹 Beräkna återstående tid utifrån när senaste bryggningen startade
   const calculateRemaining = () => {
     const startMs = new Date(startedAt).getTime();
-    if (Number.isNaN(startMs)) {
-      return 0;
-    }
+    if (Number.isNaN(startMs)) return 0;
+
     const elapsed = Date.now() - startMs;
     return Math.max(durationMs - elapsed, 0);
   };
 
   const [remainingMs, setRemainingMs] = useState(calculateRemaining);
 
+  // 🔁 Uppdatera varje sekund
   useEffect(() => {
-    setRemainingMs(calculateRemaining());
-    const id = setInterval(() => {
-      setRemainingMs(calculateRemaining());
-    }, 1000);
+    const update = () => setRemainingMs(calculateRemaining());
+    update();
 
-    return () => clearInterval(id);
-    // durationMinutes is stable, but include for completeness if parent changes it
+    const intervalId = setInterval(update, 1000);
+    return () => clearInterval(intervalId);
   }, [startedAt, durationMinutes]);
 
-  const percent = durationMs
-    ? Math.max(Math.round((remainingMs / durationMs) * 100), 0)
-    : 0;
+  // 📊 Beräkna procent och tid
+  const percent = Math.max(Math.round((remainingMs / durationMs) * 100), 0);
   const minutes = Math.floor(remainingMs / MS_PER_MINUTE);
   const seconds = Math.floor((remainingMs % MS_PER_MINUTE) / 1000);
 
+  // 🎨 Stil
   const containerStyle = useMemo(
     () => ({
       width: "100%",
@@ -43,7 +49,7 @@ function ProgressBar({ startedAt, durationMinutes = 5 }) {
       borderRadius: "999px",
       overflow: "hidden",
       border: "1px solid #d8c7b5",
-      marginTop: "0.75rem",
+      marginTop: "1rem",
     }),
     []
   );
@@ -55,7 +61,10 @@ function ProgressBar({ startedAt, durationMinutes = 5 }) {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "linear-gradient(90deg, #8b5a2b, #c68642)",
+      background:
+        percent > 0
+          ? "linear-gradient(90deg, #8b5a2b, #c68642)"
+          : "#ccc",
       color: "#1f0505ff",
       fontWeight: 600,
       letterSpacing: "0.5px",
@@ -69,8 +78,8 @@ function ProgressBar({ startedAt, durationMinutes = 5 }) {
     <div style={containerStyle} aria-live="polite">
       <div style={barStyle}>
         {remainingMs > 0
-          ? ` ${minutes}m ${seconds.toString().padStart(2, "0")}s`
-          : "0% • Kaffet är ljummet"}
+          ? `☕ ${minutes}m ${seconds.toString().padStart(2, "0")}s • ${percent}%`
+          : "⚠️ Kaffet är ljummet"}
       </div>
     </div>
   );
