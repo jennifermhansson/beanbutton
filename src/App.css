@@ -5,7 +5,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 }
 body {
-  background-color: #111;/* 
+  background-color: #111; /* 
   background-image: url(./assets/bean.jpg);
   background-position: center; */
   color: #eee;
@@ -82,14 +82,15 @@ body {
   padding: 40px;
   border-radius: 20px;
 }
-.recent-brewer-status div{
+.recent-brewer-status div {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 33px 0;
   font-size: 1.2em;
-}.recent-brewer-status div p{
+}
+.recent-brewer-status div p {
   color: #ca8505;
 }
 .top-brewers {
@@ -102,12 +103,12 @@ body {
   align-items: center;
   width: 100%;
 }
-.top-brewers-list{
+.top-brewers-list {
   margin: 10px;
   width: 100%;
   counter-reset: item;
 }
-.top-brewer-container{
+.top-brewer-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,17 +129,17 @@ body {
   border-radius: 20px;
   width: 100%;
 }
-.recent-brewers-list{
+.recent-brewers-list {
   list-style-type: none;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.recent-brewers-list li{
+.recent-brewers-list li {
   margin: 5px;
   padding: 15px;
-  border-bottom: 1px dotted #eeeEEE50;
+  border-bottom: 1px dotted #eeeeee50;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,23 +154,23 @@ body {
   flex-direction: column;
   width: 100%;
   padding: 5px;
-  gap:5px
+  gap: 5px;
 }
-.brewer-name{
-font-size: 1.2em;
-font-weight: bold;
-color: #ca8505;
-margin: 0 0;
+.brewer-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ca8505;
+  margin: 0 0;
 }
-.brewer-date{
+.brewer-date {
   font-size: 0.7em;
-margin: 10px 0 0;
+  margin: 10px 0 0;
 }
-.brewer-time{
+.brewer-time {
   font-size: 1em;
   color: #ffe7be;
 }
-.kudos-klick{
+.kudos-klick {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,10 +178,10 @@ margin: 10px 0 0;
   gap: 10px;
   margin: 8px 0 0 0px;
   padding-left: 15px;
-  border-left: 4px dotted #EEEEEE50;
+  border-left: 4px dotted #eeeeee50;
   height: 100%;
 }
-.kudos-btn{
+.kudos-btn {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -247,8 +248,7 @@ margin: 10px 0 0;
   color: #ca8505;
   border-radius: 20px;
   box-shadow: 1px 1px 5px 5px #11111190 inset;
-  margin: 20px ;
-
+  margin: 20px;
 }
 
 footer {
@@ -258,16 +258,17 @@ footer {
   flex-direction: column;
   margin: 40px 0;
   padding: 40px;
-  background-color: #11111150;
+  background-color: #20160f99;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 1px 1px 20px #00000090;
 }
-.copyrighttxt, .autorsCreds{
+.copyrighttxt,
+.autorsCreds {
   font-size: 0.8em;
   text-align: center;
 }
-.autorsCreds a{
+.autorsCreds a {
   font-size: 0.8em;
   color: #ca8505;
   text-decoration: none;
