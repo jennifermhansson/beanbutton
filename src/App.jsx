@@ -55,11 +55,11 @@ function App() {
   return (
     <>
       <div className="coffe-btn-container">
-        <CheesyQuotes />
+        
         <div className="logo-text">
           <img src="./src/assets/cup.png" alt="Coffe button logo picture" />
           Coffe Button
-        </div>
+        </div><CheesyQuotes />
         <div className="horizontal">
           <div className="left-side">
             <RecentBrewerStatus brewers={recentBrewers} />

@@ -5,7 +5,7 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 }
 body {
-  background-color: #20160f;/* 
+  background-color: #111;/* 
   background-image: url(./assets/bean.jpg);
   background-position: center; */
   color: #eee;
@@ -15,9 +15,10 @@ body {
   min-height: 100vh;
   min-width: 100wh;
   padding: 2rem;
+  font-size: 12px;
 }
 .coffe-btn-container {
-  background-color: #11111150;
+  background-color: #20160f99;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 1px 1px 20px #00000090;
@@ -49,6 +50,7 @@ body {
   align-items: start;
   gap: 40px;
   flex-wrap: wrap;
+  width: 100%;
 }
 .left-side {
   display: flex;
@@ -56,6 +58,7 @@ body {
   align-content: center;
   gap: 40px;
   flex-direction: column;
+  width: 45%;
 }
 .right-side {
   display: flex;
@@ -63,6 +66,7 @@ body {
   align-items: center;
   gap: 40px;
   flex-direction: column;
+  width: 45%;
 }
 .brygg {
   background-color: #392a1e;
@@ -122,6 +126,7 @@ body {
   background-color: #392a1e;
   padding: 40px;
   border-radius: 20px;
+  width: 100%;
 }
 .recent-brewers-list{
   list-style-type: none;
@@ -237,11 +242,13 @@ margin: 10px 0 0;
   text-align: center;
 }
 .container-quotes {
-  background-color: #ffffff99;
+  background-color: #00000050;
   padding: 15px;
-  color: #392a1e;
-  border-radius: 10px;
+  color: #ca8505;
+  border-radius: 20px;
   box-shadow: 1px 1px 5px 5px #11111190 inset;
+  margin: 20px ;
+
 }
 
 footer {
