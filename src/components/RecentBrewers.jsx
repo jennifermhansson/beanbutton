@@ -3,7 +3,7 @@ const RecentBrewers = ({ brewers, giveKudos }) => {
     <div className="recent-brewers">
       <h2>☕️ Recent Brewers</h2>
       <ul className="recent-brewers-list">
-        {brewers.slice(0, 3).map((brewer) => {
+        {brewers.slice(0, 5).map((brewer) => {
           const brewedAt = new Date(brewer.time);
           const date = brewedAt.toLocaleDateString("sv-SE");
           const time = brewedAt.toLocaleTimeString("sv-SE", {
