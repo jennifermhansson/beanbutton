@@ -58,7 +58,7 @@ function App() {
         
         <div className="logo-text">
           <img src="./src/assets/cup.png" alt="Coffe button logo picture" />
-          Coffe Button
+          Coffee Button
         </div><CheesyQuotes />
         <div className="horizontal">
           <div className="left-side">

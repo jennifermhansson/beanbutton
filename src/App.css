@@ -5,9 +5,11 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 }
 body {
-  background-color: #111; /* 
-  background-image: url(./assets/bean.jpg);
-  background-position: center; */
+  background-color: #111; 
+  background-image: url(./assets/beans-bak.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #eee;
   display: flex;
   justify-content: center;
@@ -18,7 +20,7 @@ body {
   font-size: 12px;
 }
 .coffe-btn-container {
-  background-color: #20160f99;
+  background-color: #f3b18218;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 1px 1px 20px #00000090;
@@ -69,7 +71,7 @@ body {
   width: 45%;
 }
 .brygg {
-  background-color: #392a1e;
+  background-color: #392a1eCC;
   padding: 40px;
   border-radius: 20px;
   display: flex;
@@ -78,7 +80,7 @@ body {
   flex-direction: column;
 }
 .recent-brewer-status {
-  background-color: #392a1e;
+  background-color: #392a1eCC;
   padding: 40px;
   border-radius: 20px;
 }
@@ -94,7 +96,7 @@ body {
   color: #ca8505;
 }
 .top-brewers {
-  background-color: #392a1e;
+  background-color: #392a1eCC;
   padding: 40px;
   border-radius: 20px;
   display: flex;
@@ -124,7 +126,7 @@ body {
   font-size: 1.1em;
 }
 .recent-brewers {
-  background-color: #392a1e;
+  background-color: #392a1eCC;
   padding: 40px;
   border-radius: 20px;
   width: 100%;
@@ -258,7 +260,7 @@ footer {
   flex-direction: column;
   margin: 40px 0;
   padding: 40px;
-  background-color: #20160f99;
+  background-color: #f3b18218;
   padding: 30px;
   border-radius: 20px;
   box-shadow: 1px 1px 20px #00000090;
