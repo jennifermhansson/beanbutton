@@ -13,7 +13,8 @@ function App() {
   const [name, setName] = useState("");
   const [savedName, setSavedName] = useState("");
   const [recentBrewers, setRecentBrewers] = useState([]);
-  const [isRunning, setIsRunning] = useState(true);
+  // Progress bar hidden by default; shown once someone clicks the brew button
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     const brewsRef = ref(database, "brews");
@@ -55,26 +56,30 @@ function App() {
   return (
     <>
       <div className="coffe-btn-container">
-        
         <div className="logo-text">
           <img src="./src/assets/cup.png" alt="Coffe button logo picture" />
           Coffee Button
-        </div><CheesyQuotes />
+        </div>
+        <CheesyQuotes />
         <div className="horizontal">
           <div className="left-side">
             <RecentBrewerStatus brewers={recentBrewers} />
             <div className="brygg">
               <Input savedName={savedName} setName={setName} name={name} />
-              <button onClick={handleSave} className="brew-btn">Gör kaffet</button>
+              <button onClick={handleSave} className="brew-btn">
+                Gör mer kaffe!
+              </button>
               <div className="coffe-status">
                 {isRunning ? (
-                  <ProgressBar brewers={recentBrewers} />
+                  <ProgressBar
+                    brewers={recentBrewers}
+                    onComplete={() => setIsRunning(false)}
+                  />
                 ) : (
-                  "Ingen har start något"
+                  "Ingen har bryggt kaffe än"
                 )}
               </div>
             </div>
-            
           </div>
           <div className="right-side">
             <TopBrewers brewers={recentBrewers} />

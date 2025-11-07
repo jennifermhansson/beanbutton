@@ -25,13 +25,24 @@ const TopBrewers = ({ brewers }) => {
 
   return (
     <div className="top-brewers">
-      <h2>🏆 Top Brewers</h2>
+      <h2>🏆 Bästa Bryggaren</h2>
       <ol className="top-brewers-list">
-        {topBrewers.map((brewer) => (
-          <li key={brewer.name} className="top-brewer-container">
-            <p className="brewer-name">{brewer.name}</p><p> — Antal: {brewer.kudos || 0}</p>
-          </li>
-        ))}
+        {topBrewers.map((brewer, index) => {
+          const medals = ["🥇", "🥈", "🥉"];
+          const medal = medals[index] || "•";
+
+          return (
+            <li key={brewer.name} className="top-brewer-container">
+              <span className="top-brewer-rank" aria-hidden="true">
+                {medal}
+              </span>
+              <span className="top-brewer-name">{brewer.name}</span>
+              <span className="top-brewer-kudos">
+                #Kudos: {brewer.kudos || 0}
+              </span>
+            </li>
+          );
+        })}
       </ol>
     </div>
   );

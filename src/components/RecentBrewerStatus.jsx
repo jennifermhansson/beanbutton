@@ -42,23 +42,31 @@ function RecentBrewerStatus({ brewers = [] }) {
 
   return (
     <div className="recent-brewer-status">
-      <h2>☕️ Senaste bryggning</h2>
+      <h2>☕️Kaffe Status</h2>
 
-      {status === "väntar" && <div>⏳ Bryggning pågår...<p className="brewer-name">{brewerName}</p></div>}
+      {status === "väntar" && (
+        <div>
+          ⏳ Bryggning pågår...<p className="brewer-name">{brewerName}</p>
+        </div>
+      )}
 
       {status === "färsk" && (
-        <div><p className="brewer-name">{brewerName}</p> bryggde nyligen, kaffe finns!</div>
+        <div>
+          <p className="brewer-name">{brewerName}</p> bryggde nyligen, kaffe
+          finns!
+        </div>
       )}
 
       {status === "risk" && (
         <div className="recent-brewer-status__warning">
-          ⚠️ Kaffet är äldre än <p>{FRESH_MINUTES} minuter</p> drick på egen risk!
+          ⚠️ Kaffet är äldre än <p>{FRESH_MINUTES} minuter</p> drick på egen
+          risk!
         </div>
       )}
 
       {status === "newPot" && (
         <div className="recent-brewer-status__warning">
-          🕰️ Kaffet är över <p>{old} minuter</p>  gammalt, brygg nytt!
+          🕰️ Kaffet är <p>{old} minuter</p> gammalt eller slut, brygg nytt!
         </div>
       )}
     </div>

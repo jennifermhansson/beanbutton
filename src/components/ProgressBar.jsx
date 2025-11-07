@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 
 const MS_PER_MINUTE = 60 * 1000;
 
@@ -6,7 +6,7 @@ const MS_PER_MINUTE = 60 * 1000;
  * ProgressBar som tar in en array av brewers-objekt
  * och använder tiden från den senaste (första) bryggningen.
  */
-function ProgressBar({ brewers = [], durationMinutes = 3 }) {
+function ProgressBar({ brewers = [], durationMinutes = 3, onComplete }) {
   // 🧩 Ingen data? Visa inget
   if (!brewers.length) return null;
 
@@ -27,6 +27,9 @@ function ProgressBar({ brewers = [], durationMinutes = 3 }) {
 
   const [remainingMs, setRemainingMs] = useState(calculateRemaining);
 
+  // Ensure we only call onComplete once when the timer reaches zero
+  const completedCalled = useRef(false);
+
   // 🔁 Uppdatera varje sekund
   useEffect(() => {
     const update = () => setRemainingMs(calculateRemaining());
@@ -35,6 +38,14 @@ function ProgressBar({ brewers = [], durationMinutes = 3 }) {
     const intervalId = setInterval(update, 1000);
     return () => clearInterval(intervalId);
   }, [startedAt, durationMinutes]);
+
+  // When remaining reaches 0, notify parent once (so it can hide the progress bar)
+  useEffect(() => {
+    if (remainingMs === 0 && !completedCalled.current) {
+      completedCalled.current = true;
+      if (typeof onComplete === "function") onComplete();
+    }
+  }, [remainingMs, onComplete]);
 
   // 📊 Beräkna procent och tid
   const percent = Math.max(Math.round((remainingMs / durationMs) * 100), 0);
@@ -71,12 +82,13 @@ function ProgressBar({ brewers = [], durationMinutes = 3 }) {
     [percent]
   );
 
+  // Hide when time is up
+  if (remainingMs === 0) return null;
+
   return (
     <div style={containerStyle} aria-live="polite">
       <div style={barStyle}>
-        {remainingMs > 0
-          ? ` ${minutes}m ${seconds.toString().padStart(2, "0")}s `
-          : ""}
+        {` ${minutes}m ${seconds.toString().padStart(2, "0")}s `}
       </div>
     </div>
   );

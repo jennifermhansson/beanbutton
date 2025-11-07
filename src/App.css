@@ -1,109 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+  font-family: "Mulish", "Segoe UI", Tahoma, Geneva, Verdana, -apple-system,
+    system-ui, sans-serif;
 }
+
+:root {
+  /* Color system */
+  --bg: #111;
+  --panel-bg: #392a1ecc; /* panel/card background (was hard-coded) */
+  --card-bg: #f0e6d8;
+  --accent: #ca8505;
+  --panel-h2-color: #fff;
+
+  /* Spacing & sizes */
+  --panel-padding: 18px;
+  --panel-radius: 20px;
+  --panel-h2-size: 1.2rem;
+  --panel-border: 1px solid #261c14cc;
+  --panel-box-shadow: 1px 1px 20px #00000090;
+}
+
+.body,
 body {
-  background-color: #111; 
+  background-color: #111;
   background-image: url(./assets/beans-bak.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   min-height: 100vh;
-  min-width: 100wh;
-  padding: 2rem;
-  font-size: 12px;
+  min-width: 100%;
+  overflow-x: hidden;
+  /* padding: 1rem;  */
+  font-size: 14px;
 }
 .coffe-btn-container {
-  background-color: #f3b18218;
-  padding: 30px;
+  background-color: #181717ae;
+  padding: 3rem;
   border-radius: 20px;
-  box-shadow: 1px 1px 20px #00000090;
-  width: 960px;
-  min-width: 300px;
+  box-shadow: var(--panel-box-shadow);
+  width: 100%;
+  /* fluid container: min 520px, prefer 90vw, max 1200px */
+  max-width: clamp(520px, 90vw, 1200px);
+  margin: 0.5rem auto; /* center horizontally */
   display: flex;
   flex-direction: column;
 }
+
 .logo-text {
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem; /* slightly smaller for small screens */
+  margin-bottom: 0.8rem;
   color: #ca8505;
-  letter-spacing: 3px;
+  letter-spacing: 1.5px;
   text-shadow: 1px 1px 1px rgb(245, 126, 0);
   text-transform: uppercase;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  padding: 8px 0;
 }
 .logo-text img {
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
+  width: 60px;
+  height: 60px;
+  margin-right: 12px;
 }
 .horizontal {
   display: flex;
   justify-content: center;
-  align-items: start;
-  gap: 40px;
+  align-items: flex-start;
+  gap: 1rem;
   flex-wrap: wrap;
   width: 100%;
+  flex-direction: column; /* mobile-first stack */
 }
 .left-side {
   display: flex;
   justify-content: center;
   align-content: center;
-  gap: 40px;
+  gap: 1rem;
   flex-direction: column;
-  width: 45%;
+  width: 100%;
 }
 .right-side {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 1rem;
   flex-direction: column;
-  width: 45%;
+  width: 100%;
 }
 .brygg {
-  background-color: #392a1eCC;
-  padding: 40px;
-  border-radius: 20px;
+  background-color: var(--panel-bg);
+  padding: var(--panel-padding);
+  border-radius: var(--panel-radius);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border: var(--panel-border);
+  box-shadow: var(--panel-box-shadow);
 }
+
+.brygg h2 {
+  text-align: center;
+}
+
 .recent-brewer-status {
-  background-color: #392a1eCC;
-  padding: 40px;
-  border-radius: 20px;
+  background-color: var(--panel-bg);
+  padding: var(--panel-padding);
+  border-radius: var(--panel-radius);
+  border: var(--panel-border);
+  box-shadow: var(--panel-box-shadow);
 }
 .recent-brewer-status div {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 33px 0;
-  font-size: 1.2em;
+  margin: 18px 0;
+  font-size: 1.1rem;
 }
 .recent-brewer-status div p {
   color: #ca8505;
 }
 .top-brewers {
-  background-color: #392a1eCC;
-  padding: 40px;
-  border-radius: 20px;
+  background-color: var(--panel-bg);
+  padding: var(--panel-padding);
+  border-radius: var(--panel-radius);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
+  border: var(--panel-border);
+  box-shadow: var(--panel-box-shadow);
 }
 .top-brewers-list {
   margin: 10px;
@@ -112,24 +146,45 @@ body {
 }
 .top-brewer-container {
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: row;
-  counter-increment: item;
-  gap: 3px;
+  gap: 12px;
   margin: 10px 0 0;
 }
+
+/* remove automatic counter as we render medals directly */
 .top-brewer-container::before {
-  content: counter(item) ". ";
-  color: #ca8505;
-  margin-right: 0.5rem;
-  font-size: 1.1em;
+  content: none;
+}
+
+/* Columns inside a top-brewer row */
+.top-brewer-rank {
+  width: 36px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.top-brewer-name {
+  flex: 1 1 auto; /* expand to take available space */
+  font-weight: 700;
+  color: var(--accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.top-brewer-kudos {
+  min-width: 90px;
+  text-align: right;
+  color: var(--panel-h2-color);
+  font-weight: 600;
 }
 .recent-brewers {
-  background-color: #392a1eCC;
-  padding: 40px;
-  border-radius: 20px;
+  background-color: var(--panel-bg);
+  padding: var(--panel-padding);
+  border-radius: var(--panel-radius);
   width: 100%;
+  border: var(--panel-border);
+  box-shadow: var(--panel-box-shadow);
 }
 .recent-brewers-list {
   list-style-type: none;
@@ -138,29 +193,43 @@ body {
   align-items: center;
   flex-direction: column;
 }
+
+/* Common h2 styling for panel-like containers */
+.brygg h2,
+.recent-brewer-status h2,
+.top-brewers h2,
+.recent-brewers h2,
+.user-input-container h2,
+.container-quotes h2 {
+  color: var(--panel-h2-color);
+  font-size: var(--panel-h2-size);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
 .recent-brewers-list li {
-  margin: 5px;
-  padding: 15px;
+  margin: 6px 0;
+  padding: 12px;
   border-bottom: 1px dotted #eeeeee50;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
   width: 100%;
   background-color: #11111150;
+  gap: 8px;
 }
 .name-time-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: start;
   flex-direction: column;
   width: 100%;
   padding: 5px;
-  gap: 5px;
+  gap: 4px;
 }
 .brewer-name {
-  font-size: 1.2em;
-  font-weight: bold;
+  font-size: 1.05em;
+  font-weight: 700;
   color: #ca8505;
   margin: 0 0;
 }
@@ -178,8 +247,8 @@ body {
   align-items: center;
   flex-direction: row;
   gap: 10px;
-  margin: 8px 0 0 0px;
-  padding-left: 15px;
+  margin: 0;
+  padding-left: 12px;
   border-left: 4px dotted #eeeeee50;
   height: 100%;
 }
@@ -194,21 +263,20 @@ body {
 }
 .brew-btn {
   background-color: #ca8505;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: background 0.2s ease, transform 0.08s ease;
   cursor: pointer;
-  padding: 5px 15px;
-  border-radius: 20px;
-  height: 4em;
-  border: 3px solid #bd9858;
+  padding: 0.6rem 1.25rem;
+  border-radius: 18px;
+  border: 2px solid #bd9858;
   color: #fff;
-  font-weight: bold;
-  box-shadow: 1px 1px 5px 5px #11111190 inset;
+  font-weight: 700;
+  box-shadow: 1px 1px 6px #00000055 inset;
+  min-height: 44px;
 }
-.brew-btnhover:hover:not(:disabled) {
-  transform: scale(1.05);
-  cursor: pointer;
+.brew-btn:hover:not(:disabled) {
+  transform: scale(1.03);
 }
-.brew-btnhover:disabled {
+.brew-btn:disabled {
   background-color: #d1c0ad;
   cursor: not-allowed;
 }
@@ -225,25 +293,80 @@ body {
   margin: 10px;
 }
 .user-input-container li {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   margin: 10px;
+  list-style-type: "▫️";
 }
 .user-input {
-  padding: 0.6rem 1rem;
+  padding: 0.55rem 0.9rem;
   border: 2px solid #ca8505;
-  border-radius: 20px;
-  font-size: 1.5rem;
+  border-radius: 14px;
+  font-size: 1.2rem;
   width: 100%;
-  height: 60px;
-  max-width: 200px;
-  margin: 20px;
+  height: 48px;
+  max-width: 260px;
+  margin: 12px 0;
   text-align: center;
-  box-shadow: 1px 1px 5px 5px #11111190 inset;
+  box-shadow: 1px 1px 5px #00000040 inset;
 }
 .user-input::placeholder {
-  font-size: 0.45em;
+  font-size: 1rem;
   text-align: center;
+  font-style: italic;
 }
+/* Small-screen tweaks to avoid horizontal overflow and make content comfortably centered */
+@media (max-width: 599px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .coffe-btn-container {
+    max-width: 100%; /* allow full width on very small screens */
+    padding: 12px;
+    margin: 0.4rem auto;
+  }
+
+  .logo-text {
+    font-size: 1.15rem;
+    padding: 6px 0;
+  }
+
+  /* Stack list items vertically so each card fits the screen */
+  .recent-brewers-list li {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
+
+  .kudos-klick {
+    margin-top: 8px;
+    padding-left: 0;
+    border-left: none;
+    justify-content: flex-end;
+  }
+
+  /* Make long text wrap and avoid fixed heights */
+  .brewer-name,
+  .brewer-date,
+  .brewer-time {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .brew-btn {
+    width: auto;
+    align-self: center;
+    padding: 0.5rem 1rem;
+    min-width: 140px;
+  }
+
+  .user-input {
+    max-width: 100%;
+    width: calc(100% - 2rem);
+    margin: 8px auto;
+  }
+}
+
 .container-quotes {
   background-color: #00000050;
   padding: 15px;
@@ -251,6 +374,7 @@ body {
   border-radius: 20px;
   box-shadow: 1px 1px 5px 5px #11111190 inset;
   margin: 20px;
+  font-size: 1.1rem;
 }
 
 footer {
@@ -261,7 +385,6 @@ footer {
   margin: 40px 0;
   padding: 40px;
   background-color: #f3b18218;
-  padding: 30px;
   border-radius: 20px;
   box-shadow: 1px 1px 20px #00000090;
 }
@@ -276,7 +399,7 @@ footer {
   text-decoration: none;
 }
 .brewer {
-  background: #f0e6d8;
+  background: var(--card-bg);
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 0.8rem;
@@ -298,5 +421,90 @@ footer {
 
   .userInput input {
     width: 100%;
+  }
+}
+/* MOBILE FIRST — korrigerar strukturen */
+.horizontal {
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.left-side,
+.right-side {
+  width: 100%;
+}
+
+/* Flytta TopBrewers UNDER RecentBrewers visuellt */
+.right-side {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/* Justera padding & spacing för små skärmar */
+.logo-text {
+  padding: 20px 0;
+}
+
+.brygg,
+.recent-brewer-status,
+.top-brewers,
+.recent-brewers {
+  padding: var(--panel-padding);
+}
+
+.user-input {
+  max-width: 100%;
+}
+
+/* Tablet / small desktop */
+@media (min-width: 600px) {
+  body {
+    padding: 1.25rem;
+    font-size: 15px;
+  }
+
+  .coffe-btn-container {
+    padding: 26px;
+  }
+
+  .logo-text {
+    font-size: 1.8rem;
+    padding: 18px 0;
+  }
+
+  .horizontal {
+    gap: 1.5rem;
+  }
+}
+
+/* Desktop layout */
+@media (min-width: 900px) {
+  .horizontal {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .left-side,
+  .right-side {
+    width: 45%;
+  }
+
+  /* Desktop: TopBrewers tillbaka överst */
+  .right-side {
+    flex-direction: column;
+  }
+
+  .coffe-btn-container {
+    padding: 30px;
+  }
+
+  .logo-text {
+    font-size: 2.2rem;
+    padding: 28px 0;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
   }
 }
