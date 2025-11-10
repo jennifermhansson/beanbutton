@@ -6,14 +6,15 @@ import TopBrewers from "./components/TopBrewers.jsx";
 import RecentBrewerStatus from "./components/RecentBrewerStatus.jsx";
 import { database } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
-import MarqueeText from "react-marquee-text";
 import CheesyQuotes from "./components/CheesyQuotes.jsx";
+import FooterObj from "./components/footer.jsx";
 
 function App() {
   const [name, setName] = useState("");
   const [savedName, setSavedName] = useState("");
   const [recentBrewers, setRecentBrewers] = useState([]);
-  const [isRunning, setIsRunning] = useState(true);
+  // Progress bar hidden by default; shown once someone clicks the brew button
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     const brewsRef = ref(database, "brews");
@@ -52,27 +53,44 @@ function App() {
     });
   };
 
-
   return (
-    <div>
-      <CheesyQuotes />
+    <>
+      <div className="coffe-btn-container">
+        <div className="logo-text">
+          <img src="./src/assets/cup.png" alt="Coffe button logo picture" />
+          Coffee Button
+        </div>
+        <CheesyQuotes />
+        <div className="horizontal">
+          <div className="left-side">
+            <RecentBrewerStatus brewers={recentBrewers} />
+            <div className="brygg">
+              <Input savedName={savedName} setName={setName} name={name} />
+              <button onClick={handleSave} className="brew-btn">
+                Gör mer kaffe!
+              </button>
+              <div className="coffe-status">
+                {isRunning ? (
+                  <ProgressBar
+                    brewers={recentBrewers}
+                    onComplete={() => setIsRunning(false)}
+                  />
+                ) : (
+                  "Ingen brygger kaffe just nu"
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="right-side">
+            <TopBrewers brewers={recentBrewers} />
+            <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
+          </div>
+        </div>
 
-      <h1>Bean Button</h1>
-      <Input savedName={savedName} setName={setName} name={name} />
-      <button onClick={handleSave}>Gör kaffet</button>
-      {isRunning ? (
-        <ProgressBar startedAt={new Date()} />
-      ) : (
-        "Ingen har start något"
-      )}
-
-      <RecentBrewerStatus brewers={recentBrewers} />
-  
-      <div className="container-brewers">
-        <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
-        <TopBrewers brewers={recentBrewers} />
+        <div className="container-brewers"></div>
       </div>
-    </div>
+      <FooterObj />
+    </>
   );
 }
 

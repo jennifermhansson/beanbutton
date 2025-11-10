@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-const FRESH_MINUTES = 1; // kaffe räknas som färskt i 30 min
+const FRESH_MINUTES = 30; // kaffe räknas som färskt i 30 min
 const MS_PER_MINUTE = 60 * 1000;
-const delayWhenBrewing = 5; // sekunder att vänta innan status visas
-const old = 2; // minuter efter vilket det är dags att brygga nytt
+const delayWhenBrewing = 180; // sekunder att vänta innan status visas
+const old = 90; // minuter efter vilket det är dags att brygga nytt
 
 function RecentBrewerStatus({ brewers = [] }) {
   const [status, setStatus] = useState("väntar"); // väntar | färsk | risk | newPot
@@ -41,27 +41,35 @@ function RecentBrewerStatus({ brewers = [] }) {
   const brewerName = brewers[0]?.name || "Okänd";
 
   return (
-    <section className="recent-brewer-status">
-      <h2>☕️ Senaste bryggning</h2>
+    <div className="recent-brewer-status">
+      <h2>☕️Kaffe Status</h2>
 
-      {status === "väntar" && <p>⏳ Bryggning pågår...{brewerName}</p>}
+      {status === "väntar" && (
+        <div>
+          ⏳ Bryggning pågår...<p className="brewer-name">{brewerName}</p>
+        </div>
+      )}
 
       {status === "färsk" && (
-        <p>🟢 {brewerName} bryggde nyligen – kaffe finns!</p>
+        <div>
+          <p className="brewer-name">{brewerName}</p> bryggde nyligen, kaffe
+          finns!
+        </div>
       )}
 
       {status === "risk" && (
-        <p className="recent-brewer-status__warning">
-          ⚠️ Kaffet är äldre än {FRESH_MINUTES} minuter – på egen risk!
-        </p>
+        <div className="recent-brewer-status__warning">
+          ⚠️ Kaffet är äldre än <p>{FRESH_MINUTES} minuter</p> drick på egen
+          risk!
+        </div>
       )}
 
       {status === "newPot" && (
-        <p className="recent-brewer-status__warning">
-          🕰️ Kaffet är över {old} minuter gammalt – brygg nytt!
-        </p>
+        <div className="recent-brewer-status__warning">
+          🕰️ Kaffet är <p>{old} minuter</p> gammalt eller slut, brygg nytt!
+        </div>
       )}
-    </section>
+    </div>
   );
 }
 
