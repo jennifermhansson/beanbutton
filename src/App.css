@@ -11,7 +11,8 @@
 :root {
   /* Color system */
   --bg: #111;
-  --panel-bg: #392a1ecc; /* panel/card background (was hard-coded) */
+  --container-bg: #181717ae;
+  --panel-bg: #3c2f24ba; /* panel/card background (was hard-coded) */
   --card-bg: #f0e6d8;
   --accent: #ca8505;
   --panel-h2-color: #fff;
@@ -39,7 +40,7 @@ body {
   font-size: 14px;
 }
 .coffe-btn-container {
-  background-color: #181717ae;
+  background-color: var(--container-bg);
   padding: 3rem;
   border-radius: 20px;
   box-shadow: var(--panel-box-shadow);
@@ -314,6 +315,10 @@ body {
   text-align: center;
   font-style: italic;
 }
+
+.coffe-status {
+  margin-top: 15px;
+}
 /* Small-screen tweaks to avoid horizontal overflow and make content comfortably centered */
 @media (max-width: 599px) {
   body {
@@ -382,11 +387,13 @@ footer {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 40px 0;
+  margin: 0.5rem auto; /* center horizontally */
   padding: 40px;
-  background-color: #f3b18218;
+  background-color: var(--container-bg);
   border-radius: 20px;
   box-shadow: 1px 1px 20px #00000090;
+  width: 100%;
+  max-width: clamp(520px, 90vw, 1200px);
 }
 .copyrighttxt,
 .autorsCreds {

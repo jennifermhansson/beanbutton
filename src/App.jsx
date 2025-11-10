@@ -76,7 +76,7 @@ function App() {
                     onComplete={() => setIsRunning(false)}
                   />
                 ) : (
-                  "Ingen har bryggt kaffe än"
+                  "Ingen brygger kaffe just nu"
                 )}
               </div>
             </div>
