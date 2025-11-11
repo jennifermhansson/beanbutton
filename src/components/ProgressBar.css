@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(90deg, #8b5a2b, #c68642);
+  background: linear-gradient(90deg, #ca8505, #f7d391);
   color: #fff;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -44,7 +44,7 @@
 .recent-brewer-status__subtitle {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #8b5a2b;
+  color: #ca8505;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
