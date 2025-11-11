@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const FRESH_MINUTES = 30; // kaffe räknas som färskt i 30 min
 const MS_PER_MINUTE = 60 * 1000;
-const delayWhenBrewing = 180; // sekunder att vänta innan status visas
+const delayWhenBrewing = 300; // sekunder att vänta innan status visas
 const old = 90; // minuter efter vilket det är dags att brygga nytt
 
 function RecentBrewerStatus({ brewers = [] }) {

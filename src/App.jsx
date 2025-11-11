@@ -13,9 +13,8 @@ function App() {
   const [name, setName] = useState("");
   const [savedName, setSavedName] = useState("");
   const [recentBrewers, setRecentBrewers] = useState([]);
-  // Progress bar hidden by default; shown once someone clicks the brew button
-  const [isRunning, setIsRunning] = useState(false);
 
+  // ⏳ ingen isRunning längre – ProgressBar visar sig själv utifrån tiden
   useEffect(() => {
     const brewsRef = ref(database, "brews");
     onValue(brewsRef, (snapshot) => {
@@ -40,7 +39,6 @@ function App() {
       });
       setSavedName(name);
     }
-    setIsRunning(true);
   };
 
   const giveKudos = (id) => {
@@ -57,10 +55,12 @@ function App() {
     <>
       <div className="coffe-btn-container">
         <div className="logo-text">
-          <img src="./src/assets/cup.png" alt="Coffe button logo picture" />
+          <img id="logo" src="cup.png" alt="Coffee button logo" />
           Coffee Button
         </div>
+
         <CheesyQuotes />
+
         <div className="horizontal">
           <div className="left-side">
             <RecentBrewerStatus brewers={recentBrewers} />
@@ -69,18 +69,17 @@ function App() {
               <button onClick={handleSave} className="brew-btn">
                 Gör mer kaffe!
               </button>
+
               <div className="coffe-status">
-                {isRunning ? (
-                  <ProgressBar
-                    brewers={recentBrewers}
-                    onComplete={() => setIsRunning(false)}
-                  />
-                ) : (
-                  "Ingen brygger kaffe just nu"
-                )}
+                <ProgressBar
+                  brewers={recentBrewers}
+                  durationMinutes={5}
+                  onComplete={() => console.log("Bryggning klar!")}
+                />
               </div>
             </div>
           </div>
+
           <div className="right-side">
             <TopBrewers brewers={recentBrewers} />
             <RecentBrewers brewers={recentBrewers} giveKudos={giveKudos} />
@@ -89,6 +88,7 @@ function App() {
 
         <div className="container-brewers"></div>
       </div>
+
       <FooterObj />
     </>
   );

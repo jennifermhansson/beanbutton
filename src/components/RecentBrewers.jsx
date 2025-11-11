@@ -3,7 +3,7 @@ const RecentBrewers = ({ brewers, giveKudos }) => {
     <div className="recent-brewers">
       <h2>☕️Senaste bryggningarna</h2>
       <ul className="recent-brewers-list">
-        {brewers.slice(0, 5).map((brewer) => {
+        {brewers.slice(0, 4).map((brewer) => {
           const brewedAt = new Date(brewer.time);
           // Show 'Idag' when the brew happened today, otherwise show the full date
           const isToday = new Date().toDateString() === brewedAt.toDateString();
