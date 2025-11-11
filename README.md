@@ -1,4 +1,4 @@
-☕ Bean Button
+Coffee Button☕ 
 
 Bean Button is a fun side project built to explore and learn more about JavaScript, React, and CSS. The application allows users to track coffee brews in real time, celebrate fellow brewers with kudos, and see the most recent coffee makers.
 
@@ -30,14 +30,14 @@ We used Miro to organize tasks, set priorities, and visualize the workflow from 
 ✔ Real-time updates 
 
 🛠 Installation & Setup
-# Clone the repo
+Clone the repo
 git clone https://github.com/your-repo/bean-button.git
 cd bean-button
 
-# Install dependencies
+Install dependencies
 npm install
 
-# Start development server
+Start development server
 npm run dev
 
 ✅ Future Improvements (v2 ideas)
