@@ -4,7 +4,7 @@ import ProgressBar from "./components/ProgressBar.jsx";
 import RecentBrewers from "./components/RecentBrewers.jsx";
 import TopBrewers from "./components/TopBrewers.jsx";
 import RecentBrewerStatus from "./components/RecentBrewerStatus.jsx";
-import { database } from "./firebase";
+import { database, ensureAnonymousAuth } from "./firebase";
 import { ref, push, onValue, set, runTransaction } from "firebase/database";
 import CheesyQuotes from "./components/CheesyQuotes.jsx";
 import FooterObj from "./components/footer.jsx";
@@ -28,35 +28,44 @@ function App() {
     });
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (name.trim() !== "") {
-      const brewsRef = ref(database, "brews");
-      const newBrewRef = push(brewsRef);
-      set(newBrewRef, {
-        name: name,
-        time: new Date().toISOString(),
-        kudos: 0,
-      });
-      setSavedName(name);
+      try {
+        await ensureAnonymousAuth();
+        const brewsRef = ref(database, "brews");
+        const newBrewRef = push(brewsRef);
+        await set(newBrewRef, {
+          name: name,
+          time: new Date().toISOString(),
+          kudos: 0,
+        });
+        setSavedName(name);
+      } catch (err) {
+        console.error("Failed to save brew:", err);
+      }
     }
   };
 
-  const giveKudos = (id) => {
-    const brewRef = ref(database, `brews/${id}`);
-    runTransaction(brewRef, (brew) => {
-      if (brew) {
-        brew.kudos = (brew.kudos || 0) + 1;
-      }
-      return brew;
-    });
+  const giveKudos = async (id) => {
+    try {
+      await ensureAnonymousAuth();
+      const brewRef = ref(database, `brews/${id}`);
+      await runTransaction(brewRef, (brew) => {
+        if (brew) {
+          brew.kudos = (brew.kudos || 0) + 1;
+        }
+        return brew;
+      });
+    } catch (err) {
+      console.error("Failed to give kudos:", err);
+    }
   };
 
   return (
     <>
       <div className="coffe-btn-container">
-        <div className="logo-text">
-          <img id="logo" src="cup.png" alt="Coffee button logo" />
-          Coffee Button
+        <div className="logo-container">
+          <img id="logo" src="logo.png" alt="Coffee Button logo" />
         </div>
 
         <CheesyQuotes />

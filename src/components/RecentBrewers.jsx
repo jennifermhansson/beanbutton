@@ -33,10 +33,10 @@ const RecentBrewers = ({ brewers, giveKudos }) => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-thumbs-up w-8 h-8 thumbs-icon"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-thumbs-up w-8 h-8 thumbs-icon"
                   >
                     <path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"></path>
                     <path d="M21 11.5a2.5 2.5 0 0 0-2.5-2.5H14l1-5a1.5 1.5 0 0 0-3 0L8 12v10h8.5a2.5 2.5 0 0 0 2.5-2.5z"></path>

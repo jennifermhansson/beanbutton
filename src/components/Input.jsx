@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Input({ name, setName, savedName }) {
   // Uppdatera state när användaren skriver
@@ -9,9 +9,9 @@ function Input({ name, setName, savedName }) {
   return (
     <div className="user-input-container">
       <input
-        maxlength="13"
+        maxLength={13}
         type="text"
-        // value={name}
+        value={name}
         onChange={handleChange}
         placeholder="Fyll i ditt namn och tryck på knappen"
         className="user-input"

@@ -49,33 +49,20 @@ body {
   flex-direction: column;
 }
 
-.logo-text {
-  font-size: 3rem;
-  margin: 0 auto 0.8em;
-  color: #ca8505;
-  letter-spacing: 2px;
-  text-shadow: 1px 1px 1px rgb(50, 40, 31);
-  text-transform: uppercase;
+.logo-container img {
+  width: 500px; /* use the image intrinsic width */
+  height: auto; /* use the image intrinsic height */
+  /* max-width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  background-color: #fff3dcd0;
-  width: 60%;
-  border-radius: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.047);
-  box-shadow: var(--panel-box-shadow);
-}
-.logo-text img {
-  width: 60px;
-  height: 60px;
-  margin-right: 12px;
-  margin-left: 20px;
-}
-
-#logo {
   border-radius: 10px;
 }
+
+/* #logo {
+  border-radius: 10px;
+} */
+
 .horizontal {
   display: flex;
   justify-content: center;
@@ -222,8 +209,7 @@ body {
   justify-content: space-between;
   flex-direction: row;
   width: 80%;
-  background: linear-gradient(30deg, #e79c40f3, #f8b360f3);
-  /* background-color: #e79c40f3; */
+  background-color: #ffe8bc;
   gap: 8px;
   border-radius: 20px;
   box-shadow: 1px 1px 10px #0000005a;
@@ -351,10 +337,6 @@ body {
     margin: 0.4rem auto;
   }
 
-  .logo-text {
-    font-size: 1.15rem;
-    padding: 6px 0;
-  }
 
   /* Stack list items vertically so each card fits the screen */
   .recent-brewers-list li {
@@ -472,10 +454,6 @@ footer {
   flex-direction: column-reverse;
 }
 
-/* Justera padding & spacing för små skärmar */
-.logo-text {
-  padding: 20px 0;
-}
 
 .brygg,
 .recent-brewer-status,
@@ -497,11 +475,6 @@ footer {
 
   .coffe-btn-container {
     padding: 26px;
-  }
-
-  .logo-text {
-    font-size: 1.8rem;
-    padding: 18px 0;
   }
 
   .horizontal {
@@ -530,10 +503,6 @@ footer {
     padding: 30px;
   }
 
-  .logo-text {
-    font-size: 2.2rem;
-    padding: 28px 0;
-  }
   .recent-brewers-list li {
     justify-content: space-between;
     align-items: center;
@@ -566,3 +535,29 @@ footer {
     font-size: 14px;
   }
 }
+
+/* Ensure logo container and image are centered on all screen sizes */
+.logo-container {
+  width: fit-content;
+  margin: 0.8rem auto; /* center the block horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container img,
+#logo {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: auto;
+  max-width: 100%;
+}
+
+/* semi-transparent background behind the logo */
+.logo-container {
+  background-color: rgba(255, 243, 220, 0.792); /* slightly transparent warm background */
+  padding: 0px 25px;
+  border-radius: 12px;
+}
+
