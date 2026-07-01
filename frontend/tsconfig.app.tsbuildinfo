@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/api/client.ts","./src/components/BrewButton.tsx","./src/components/CheesyQuotes.tsx","./src/components/CoffeeStatus.tsx","./src/components/ConnectionStatus.tsx","./src/components/RecentBrews.tsx","./src/components/TopBrewers.tsx","./src/hooks/useBrews.ts","./src/types/index.ts"],"version":"5.9.3"}
