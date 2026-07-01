@@ -24,3 +24,14 @@ dist-ssr
 *.sw?
 
 firebase.js
+
+# Environment
+.env
+.env.local
+
+# Backend build artifacts
+backend/BeanButton.Api/bin/
+backend/BeanButton.Api/obj/
+
+# Docker volumes
+postgres_data/
