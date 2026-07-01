@@ -12,6 +12,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<Brew>(entity =>
         {
             entity.Property(b => b.Name).HasMaxLength(100).IsRequired();
+            entity.Property(b => b.Kudos).HasDefaultValue(0);
             entity.HasIndex(b => b.BrewedAt).IsDescending();
         });
     }

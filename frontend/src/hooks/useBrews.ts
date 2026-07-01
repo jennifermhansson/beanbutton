@@ -21,6 +21,27 @@ export function useBrews() {
   useEffect(() => {
     let cancelled = false;
 
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl('/hubs/brew')
+      .withAutomaticReconnect()
+      .configureLogging(signalR.LogLevel.Warning)
+      .build();
+    connectionRef.current = connection;
+
+    connection.on('BrewAdded', (brew: Brew) => {
+      setBrews((prev) => (prev.some((b) => b.id === brew.id) ? prev : [brew, ...prev]));
+      void refreshTopBrewers();
+    });
+
+    connection.on('KudosUpdated', (id: number, newKudos: number) => {
+      setBrews((prev) => prev.map((b) => (b.id === id ? { ...b, kudos: newKudos } : b)));
+      void refreshTopBrewers();
+    });
+
+    connection.onreconnecting(() => setConnectionStatus('connecting'));
+    connection.onreconnected(() => setConnectionStatus('connected'));
+    connection.onclose(() => setConnectionStatus('disconnected'));
+
     async function init() {
       try {
         const [initialBrews, initialTop] = await Promise.all([getBrews(), getTopBrewers()]);
@@ -32,41 +53,19 @@ export function useBrews() {
         // initial fetch failed; SignalR may still connect
       }
 
-      const connection = new signalR.HubConnectionBuilder()
-        .withUrl('/hubs/brew')
-        .withAutomaticReconnect()
-        .configureLogging(signalR.LogLevel.Warning)
-        .build();
-
-      connection.on('BrewAdded', (brew: Brew) => {
-        setBrews((prev) => [brew, ...prev]);
-        void refreshTopBrewers();
-      });
-
-      connection.on('KudosUpdated', (id: number, newKudos: number) => {
-        setBrews((prev) => prev.map((b) => (b.id === id ? { ...b, kudos: newKudos } : b)));
-        void refreshTopBrewers();
-      });
-
-      connection.onreconnecting(() => setConnectionStatus('connecting'));
-      connection.onreconnected(() => setConnectionStatus('connected'));
-      connection.onclose(() => setConnectionStatus('disconnected'));
-
       try {
         await connection.start();
         if (!cancelled) setConnectionStatus('connected');
       } catch {
         if (!cancelled) setConnectionStatus('disconnected');
       }
-
-      connectionRef.current = connection;
     }
 
     void init();
 
     return () => {
       cancelled = true;
-      void connectionRef.current?.stop();
+      void connection.stop();
     };
   }, [refreshTopBrewers]);
 

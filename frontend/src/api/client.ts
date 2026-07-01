@@ -29,5 +29,5 @@ export function giveKudos(id: number): Promise<Brew> {
 }
 
 export function getTopBrewers(): Promise<TopBrewer[]> {
-  return request<TopBrewer[]>('/api/brews/top-brewers');
+  return request<TopBrewer[]>('/api/brewers/top');
 }
