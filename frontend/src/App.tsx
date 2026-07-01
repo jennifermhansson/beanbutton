@@ -5,7 +5,8 @@ import { CoffeeStatus } from './components/CoffeeStatus';
 import { RecentBrews } from './components/RecentBrews';
 import { TopBrewers } from './components/TopBrewers';
 import { ConnectionStatus } from './components/ConnectionStatus';
-import { CheesyQuotes } from './components/CheesyQuotes';
+import { CheesyQuotes } from './components/CheesyQuotes'
+import { NotificationToggle } from './components/NotificationToggle';
 
 export default function App() {
   const { brews, topBrewers, addBrew, giveKudos, connectionStatus } = useBrews();
@@ -21,6 +22,7 @@ export default function App() {
             <span className="logo-text">Bean<span className="logo-accent">Button</span></span>
           </div>
           <CheesyQuotes />
+          <NotificationToggle />
         </header>
 
         <main className="app-main">

@@ -1,5 +1,6 @@
 using BeanButton.Api.Data;
 using BeanButton.Api.Hubs;
+using BeanButton.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +10,14 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
 
 var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? "http://localhost:5173";
 
+builder.Configuration["Vapid:PublicKey"] = Environment.GetEnvironmentVariable("VAPID_PUBLIC_KEY") ?? "";
+builder.Configuration["Vapid:PrivateKey"] = Environment.GetEnvironmentVariable("VAPID_PRIVATE_KEY") ?? "";
+builder.Configuration["Vapid:Subject"] = Environment.GetEnvironmentVariable("VAPID_SUBJECT") ?? "mailto:admin@beanbutton.app";
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<PushService>();
 
 builder.Services.AddSignalR();
 

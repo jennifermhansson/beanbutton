@@ -2,6 +2,7 @@ using BeanButton.Api.Data;
 using BeanButton.Api.DTOs;
 using BeanButton.Api.Hubs;
 using BeanButton.Api.Models;
+using BeanButton.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace BeanButton.Api.Controllers;
 
 [ApiController]
 [Route("api")]
-public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub) : ControllerBase
+public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub, PushService pushService) : ControllerBase
 {
     [HttpPost("brews")]
     public async Task<IActionResult> CreateBrew([FromBody] CreateBrewDto dto)
@@ -27,6 +28,7 @@ public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub) : Contro
 
         var result = ToDto(brew);
         await BrewHubExtensions.BroadcastBrewAdded(hub, result);
+        _ = Task.Run(() => pushService.SendBrewNotificationAsync(brew.Name));
 
         return CreatedAtAction(nameof(GetBrews), new { }, result);
     }
