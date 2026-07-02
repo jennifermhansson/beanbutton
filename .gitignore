@@ -29,6 +29,13 @@ firebase.js
 .env
 .env.local
 
+# SSH keys / secrets — never commit these
+deploy_key
+deploy_key.pub
+*.pem
+id_ed25519*
+id_rsa*
+
 # Backend build artifacts
 backend/BeanButton.Api/bin/
 backend/BeanButton.Api/obj/
