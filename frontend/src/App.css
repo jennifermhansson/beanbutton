@@ -514,37 +514,3 @@ ul, ol {
     font-size: 1.1rem;
   }
 }
-
-/* NotificationToggle */
-.notif-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
-.notif-toggle:hover:not(:disabled) {
-  border-color: var(--accent);
-  color: var(--text-primary);
-}
-.notif-toggle--on {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-}
-.notif-toggle--denied {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-.notif-icon {
-  font-size: 0.9rem;
-  line-height: 1;
-}

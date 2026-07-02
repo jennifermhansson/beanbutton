@@ -8,6 +8,10 @@ public class BrewHub : Hub
     public async Task JoinBrews()
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, "brews");
+    public override async Task OnConnectedAsync()
+    {
+        await Groups.AddToGroupAsync(Context.ConnectionId, "brews");
+        await base.OnConnectedAsync();
     }
 }
 
