@@ -12,8 +12,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<Brew>(entity =>
         {
             entity.Property(b => b.Name).HasMaxLength(100).IsRequired();
-            entity.Property(b => b.Kudos).HasDefaultValue(0);
             entity.HasIndex(b => b.BrewedAt).IsDescending();
+        });
+
+        modelBuilder.Entity<PushSubscription>(entity =>
+        {
+            entity.HasIndex(p => p.Endpoint).IsUnique();
+            entity.Property(p => p.Endpoint).HasMaxLength(512).IsRequired();
+            entity.Property(p => p.P256dh).HasMaxLength(256).IsRequired();
+            entity.Property(p => p.Auth).HasMaxLength(128).IsRequired();
         });
     }
 }

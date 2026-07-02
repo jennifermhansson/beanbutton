@@ -2,8 +2,8 @@ using BeanButton.Api.Data;
 using BeanButton.Api.DTOs;
 using BeanButton.Api.Hubs;
 using BeanButton.Api.Models;
+using BeanButton.Api.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,19 +11,14 @@ namespace BeanButton.Api.Controllers;
 
 [ApiController]
 [Route("api")]
-public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub) : ControllerBase
+public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub, PushService pushService) : ControllerBase
 {
     [HttpPost("brews")]
-    [EnableRateLimiting("write")]
     public async Task<IActionResult> CreateBrew([FromBody] CreateBrewDto dto)
     {
-        var name = dto.Name.Trim();
-        if (name.Length == 0)
-            return BadRequest("Name is required.");
-
         var brew = new Brew
         {
-            Name = name,
+            Name = dto.Name,
             BrewedAt = DateTime.UtcNow,
             Kudos = 0
         };
@@ -33,6 +28,7 @@ public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub) : Contro
 
         var result = ToDto(brew);
         await BrewHubExtensions.BroadcastBrewAdded(hub, result);
+        _ = Task.Run(() => pushService.SendBrewNotificationAsync(brew.Name));
 
         return CreatedAtAction(nameof(GetBrews), new { }, result);
     }
@@ -50,7 +46,6 @@ public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub) : Contro
     }
 
     [HttpPost("brews/{id}/kudos")]
-    [EnableRateLimiting("write")]
     public async Task<IActionResult> GiveKudos(int id)
     {
         while (true)
