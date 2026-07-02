@@ -5,9 +5,6 @@ namespace BeanButton.Api.Hubs;
 
 public class BrewHub : Hub
 {
-    public async Task JoinBrews()
-    {
-        await Groups.AddToGroupAsync(Context.ConnectionId, "brews");
     public override async Task OnConnectedAsync()
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, "brews");

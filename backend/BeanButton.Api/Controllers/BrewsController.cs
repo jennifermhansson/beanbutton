@@ -11,7 +11,7 @@ namespace BeanButton.Api.Controllers;
 
 [ApiController]
 [Route("api")]
-public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub, PushService pushService) : ControllerBase
+public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub, IServiceScopeFactory scopeFactory) : ControllerBase
 {
     [HttpPost("brews")]
     public async Task<IActionResult> CreateBrew([FromBody] CreateBrewDto dto)
@@ -28,7 +28,16 @@ public class BrewsController(AppDbContext db, IHubContext<BrewHub> hub, PushServ
 
         var result = ToDto(brew);
         await BrewHubExtensions.BroadcastBrewAdded(hub, result);
-        _ = Task.Run(() => pushService.SendBrewNotificationAsync(brew.Name));
+
+        // Fire-and-forget push, in its own DI scope so it doesn't use the
+        // request-scoped DbContext (which is disposed when the request ends).
+        var brewerName = brew.Name;
+        _ = Task.Run(async () =>
+        {
+            using var scope = scopeFactory.CreateScope();
+            var pushService = scope.ServiceProvider.GetRequiredService<PushService>();
+            await pushService.SendBrewNotificationAsync(brewerName);
+        });
 
         return CreatedAtAction(nameof(GetBrews), new { }, result);
     }

@@ -26,6 +26,9 @@ services:
       CONNECTION_STRING: "Host=db;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
       FRONTEND_URL: "https://${DOMAIN}"
       ASPNETCORE_URLS: "http://+:5000"
+      Vapid__PublicKey: "${VAPID_PUBLIC_KEY}"
+      Vapid__PrivateKey: "${VAPID_PRIVATE_KEY}"
+      Vapid__Subject: "${VAPID_SUBJECT}"
     depends_on:
       db:
         condition: service_healthy

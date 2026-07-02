@@ -6,17 +6,25 @@ namespace BeanButton.Api.Services;
 
 public class PushService(AppDbContext db, IConfiguration config, ILogger<PushService> logger)
 {
-    private readonly string _publicKey = config["Vapid:PublicKey"] ?? throw new InvalidOperationException("Vapid:PublicKey not configured");
-    private readonly string _privateKey = config["Vapid:PrivateKey"] ?? throw new InvalidOperationException("Vapid:PrivateKey not configured");
+    private readonly string? _publicKey = config["Vapid:PublicKey"];
+    private readonly string? _privateKey = config["Vapid:PrivateKey"];
     private readonly string _subject = config["Vapid:Subject"] ?? "mailto:admin@beanbutton.app";
+
+    public bool IsConfigured => !string.IsNullOrEmpty(_publicKey) && !string.IsNullOrEmpty(_privateKey);
 
     public async Task SendBrewNotificationAsync(string brewerName)
     {
+        if (!IsConfigured)
+        {
+            logger.LogWarning("Push notifications not sent: VAPID keys are not configured.");
+            return;
+        }
+
         var subscriptions = await db.PushSubscriptions.ToListAsync();
         if (subscriptions.Count == 0) return;
 
         var client = new WebPushClient();
-        client.SetVapidDetails(_subject, _publicKey, _privateKey);
+        client.SetVapidDetails(_subject, _publicKey!, _privateKey!);
 
         var payload = System.Text.Json.JsonSerializer.Serialize(new
         {

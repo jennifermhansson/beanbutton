@@ -1,6 +1,7 @@
 using System.Threading.RateLimiting;
 using BeanButton.Api.Data;
 using BeanButton.Api.Hubs;
+using BeanButton.Api.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddSignalR();
+
+builder.Services.AddScoped<PushService>();
 
 builder.Services.AddCors(options =>
 {

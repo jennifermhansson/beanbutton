@@ -6,6 +6,7 @@ import { RecentBrews } from './components/RecentBrews';
 import { TopBrewers } from './components/TopBrewers';
 import { ConnectionStatus } from './components/ConnectionStatus';
 import { CheesyQuotes } from './components/CheesyQuotes';
+import { NotificationToggle } from './components/NotificationToggle';
 
 export default function App() {
   const { brews, topBrewers, addBrew, giveKudos, connectionStatus } = useBrews();
@@ -26,6 +27,7 @@ export default function App() {
         <main className="app-main">
           <CoffeeStatus brews={brews} />
           <BrewButton onBrew={addBrew} />
+          <NotificationToggle />
           <RecentBrews brews={brews} onKudos={giveKudos} />
           <TopBrewers brewers={topBrewers} />
         </main>

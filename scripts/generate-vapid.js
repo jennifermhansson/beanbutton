@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Run: node scripts/generate-vapid.js
+// Easiest: npx web-push generate-vapid-keys
+// Or with this script: cd scripts && npm install && node generate-vapid.js
 // Then copy the output into your .env file
 
 import { generateVAPIDKeys } from 'web-push'
