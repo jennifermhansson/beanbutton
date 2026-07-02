@@ -36,7 +36,7 @@ function getStatus(brews: Brew[]): StatusInfo {
   }
   if (minutesAgo < 30) {
     return {
-      label: "FRESH ☕",
+      label: "FRESH☕",
       level: "fresh",
       dotClass: "dot--fresh",
       minutesAgo,
@@ -44,7 +44,7 @@ function getStatus(brews: Brew[]): StatusInfo {
   }
   if (minutesAgo < 90) {
     return {
-      label: "OLD OR OUT ☠️",
+      label: "OLD OR OUT☠️",
       level: "getting-old",
       dotClass: "dot--old",
       minutesAgo,
