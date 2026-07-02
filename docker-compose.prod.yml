@@ -46,7 +46,9 @@ services:
     depends_on:
       - backend
     # Reload periodically so renewed certificates are picked up without downtime.
-    command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
+    # Note: the inner `/docker-entrypoint.sh nginx ...` is required so the image
+    # runs its config-templating step (it only does so when arg 1 is `nginx`).
+    command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & /docker-entrypoint.sh nginx -g 'daemon off;'"
 
   certbot:
     image: certbot/certbot
